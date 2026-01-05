@@ -3,7 +3,6 @@ import {notFound} from 'next/navigation'
 import {type PortableTextBlock} from 'next-sanity'
 import {Suspense} from 'react'
 
-import Avatar from '@/app/components/Avatar'
 import {MorePosts} from '@/app/components/Posts'
 import PortableText from '@/app/components/PortableText'
 import Image from '@/app/components/SanityImage'
@@ -73,11 +72,6 @@ export default async function PostPage(props: Props) {
             <div className="pb-6 grid gap-6 mb-6 border-b border-gray-100">
               <div className="max-w-3xl flex flex-col gap-6">
                 <h1 className="text-4xl text-gray-900 sm:text-5xl lg:text-7xl">{post.title}</h1>
-              </div>
-              <div className="max-w-3xl flex gap-4 items-center">
-                {post.author && post.author.firstName && post.author.lastName && (
-                  <Avatar person={post.author} date={post.date} />
-                )}
               </div>
             </div>
             <article className="gap-6 grid max-w-4xl">
