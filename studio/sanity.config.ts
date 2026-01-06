@@ -128,7 +128,7 @@ export default defineConfig({
     unsplashImageAsset(),
     assist(),
     visionTool(),
-    muxInput(), // Add this line
+    muxInput(),
   ],
 
   // Schema configuration, imported from ./src/schemaTypes/index.ts

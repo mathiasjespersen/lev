@@ -30,12 +30,8 @@ export default defineType({
     defineField({
       name: 'video',
       title: 'Video',
-      type: 'file',
+      type: 'mux.video',
       hidden: ({parent}) => parent?.mediaType !== 'video',
-      description: 'Upload a video file (MP4 format recommended)',
-      options: {
-        accept: 'video/mp4,video/webm,video/ogg',
-      },
     }),
   ],
   options: {collapsible: true},

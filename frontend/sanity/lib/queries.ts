@@ -2,6 +2,19 @@ import {defineQuery} from 'next-sanity'
 
 export const settingsQuery = defineQuery(`*[_type == "settings"][0]`)
 
+const visualFields = /* groq */ `
+  _type,
+  mediaType,
+  image{
+    ...,
+    asset->
+  },
+  video{
+    ...,
+    asset->
+  }
+`
+
 const articleFields = /* groq */ `
   _id,
   "status": select(_originalId in path("drafts.**") => "draft", "published"),
@@ -11,7 +24,7 @@ const articleFields = /* groq */ `
   thumbnail,
   "date": coalesce(date, _updatedAt),
   "author": author->{firstName, lastName, picture},
-  postImage,
+  postImage{${visualFields}},
 `
 
 const linkReference = /* groq */ `

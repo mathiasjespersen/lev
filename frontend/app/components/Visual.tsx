@@ -2,8 +2,9 @@ import type {Visual} from '@/sanity.types'
 import { SanityImage } from 'sanity-image';
 import {dataset, projectId} from '@/sanity/lib/api'
 
+import MuxPlayer from "@mux/mux-player-react";
+
 export default function Visual({visual}: {visual: Visual}) {
-    console.log('Visual component received visual:', visual);
     return (
         <>
             {
@@ -15,17 +16,14 @@ export default function Visual({visual}: {visual: Visual}) {
                     />
                 )
             }
-            {/* {
-                visual.mediaType === 'video' && visual.video && (
-                    <video
-                        src={visual.video.asset}
-                        controls
-                        className="w-full h-auto"
-                    >
-                        Your browser does not support the video tag.
-                    </video>
+            {
+                visual.mediaType === 'video' && visual.video && (visual.video.asset as any)?.playbackId && (
+                    <MuxPlayer
+                        playbackId={(visual.video.asset as any)?.playbackId}
+                        accentColor="#ea580c"
+                    />
                 )
-            } */}
+            }
         </>
     )
 }
