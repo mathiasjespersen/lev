@@ -2,6 +2,7 @@ import './globals.css'
 
 import {SpeedInsights} from '@vercel/speed-insights/next'
 import type {Metadata} from 'next'
+import localFont from 'next/font/local'
 import {Inter, IBM_Plex_Mono} from 'next/font/google'
 import {draftMode} from 'next/headers'
 import {toPlainText} from 'next-sanity'
@@ -49,6 +50,15 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       images: ogImage ? [ogImage] : [],
     },
+    robots: {
+      index: false,
+      follow: false,
+      googleBot: {
+        index: false,
+        follow: false,
+        noimageindex: true,
+      },
+    },
   }
 }
 
@@ -65,11 +75,61 @@ const ibmPlexMono = IBM_Plex_Mono({
   display: 'swap',
 })
 
+const levSans = localFont({
+  src: [
+    {
+      path: './fonts/Lev-Sans-Regular.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: './fonts/Lev-Sans-Medium.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: './fonts/Lev-Sans-SemiBold.woff2',
+      weight: '600',
+      style: 'normal',
+    },
+    {
+      path: './fonts/Lev-Sans-Bold.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+    {
+      path: './fonts/Lev-Sans-Italic.woff2',
+      weight: '400',
+      style: 'italic',
+    },
+    {
+      path: './fonts/Lev-Sans-Medium-Italic.woff2',
+      weight: '500',
+      style: 'italic',
+    },
+    {
+      path: './fonts/Lev-Sans-SemiBold-Italic.woff2',
+      weight: '600',
+      style: 'italic',
+    },
+    {
+      path: './fonts/Lev-Sans-Bold-Italic.woff2',
+      weight: '700',
+      style: 'italic',
+    },
+  ],
+  variable: '--font-lev-sans',
+  display: 'swap',
+})
+
 export default async function RootLayout({children}: {children: React.ReactNode}) {
   const {isEnabled: isDraftMode} = await draftMode()
 
   return (
-    <html lang="en" className={`${inter.variable} ${ibmPlexMono.variable} bg-white text-black`}>
+    <html
+      lang="da"
+      className={`${levSans.variable} ${inter.variable} ${ibmPlexMono.variable} bg-white text-black`}
+    >
       <body>
         <section className="min-h-screen pt-24">
           {/* The <Toaster> component is responsible for rendering toast notifications used in /app/client-utils.ts and /app/components/DraftModeToast.tsx */}

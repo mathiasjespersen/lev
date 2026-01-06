@@ -13,3 +13,13 @@ npm install
 ```shell
 npm run dev
 ```
+
+
+###
+
+
+Frontend:
+https://lev-frontend.vercel.app/
+
+Studio hos Sanity:
+https://lev-prod.sanity.studio/
