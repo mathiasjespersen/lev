@@ -8,7 +8,7 @@ import OnBoarding from '@/app/components/Onboarding'
 import {dataAttr} from '@/sanity/lib/utils'
 
 const Article = ({article}: {article: AllArticlesQueryResult[number]}) => {
-  const {_id, title, slug, excerpt, date, author} = article
+  const {_id, title, slug, excerpt, date, author, category} = article
 
   return (
     <article
@@ -17,9 +17,9 @@ const Article = ({article}: {article: AllArticlesQueryResult[number]}) => {
       className="border border-gray-200 rounded-sm bg-gray-50 flex flex-col justify-between transition-colors hover:bg-white relative"
     >
       <Link className="block p-6" href={`/artikel/${slug}`}>
-        <div>
-          <h3 className="text-2xl mb-4">{title}</h3>
-
+        <div className="flex flex-col gap-y-2 items-start">
+          <h3 className="text-2xl">{title}</h3>
+          {article.category && <span className="text-sm text-gray-600 bg-gray-200 px-2 py-1 rounded">{article.category}</span>}
           <p className="line-clamp-3 text-sm leading-6 text-gray-600 max-w-[70ch]">{excerpt}</p>
         </div>
         <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-100">

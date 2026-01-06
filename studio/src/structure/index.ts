@@ -20,6 +20,28 @@ export const structure: StructureResolver = (S: StructureBuilder) =>
 
       S.divider(),
 
+      // Show a the taxonomies (with a group label "Taxonomier")
+      S.listItem()
+        .title('Taxonomier')
+        .child(
+          S.list()
+            .title('Taxonomier')
+            .items([
+              S.listItem()
+                .title('Kategorier')
+                .schemaType('tax_category')
+                .child(
+                  S.documentTypeList('tax_category').title('Kategorier')
+                ),
+              S.listItem()
+                .title('Emner')
+                .schemaType('tax_topic')
+                .child(S.documentTypeList('tax_topic').title('Emner')),
+            ])
+        ),
+
+      S.divider(),
+
       S.listItem()
         .title('Indstillinger')
         .child(S.document().schemaType('settings').documentId('siteSettings'))

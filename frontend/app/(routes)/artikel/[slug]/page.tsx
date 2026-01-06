@@ -68,8 +68,9 @@ export default async function ArticlePage(props: Props) {
         <div className="container my-12 lg:my-24 grid gap-12">
           <div>
             <div className="pb-6 grid gap-6 mb-6 border-b border-gray-100">
-              <div className="max-w-3xl flex flex-col gap-6">
+              <div className="max-w-3xl flex flex-col gap-6 items-start">
                 <h1 className="text-4xl text-gray-900 sm:text-5xl lg:text-7xl">{article.title}</h1>
+                {article.category && <span className="text-sm text-gray-600 bg-gray-200 px-2 py-1 rounded">{article.category}</span>}
               </div>
             </div>
             <article className="gap-6 grid max-w-4xl">

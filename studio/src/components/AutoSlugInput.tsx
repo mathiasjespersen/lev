@@ -17,6 +17,9 @@ export function AutoSlugInput(props: SlugInputProps) {
     // Generate slug from source value
     const slugValue = sourceValue
       .toLowerCase()
+      .replace(/æ/g, 'ae')
+      .replace(/ø/g, 'oe')
+      .replace(/å/g, 'aa')
       .replace(/\s+/g, '-')
       .replace(/[^\w\-]+/g, '')
       .replace(/\-\-+/g, '-')

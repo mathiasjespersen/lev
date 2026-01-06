@@ -1,6 +1,8 @@
 import {person} from './documents/person'
 import {page} from './documents/page'
 import {article} from './documents/article'
+import {tax_category} from './documents/tax_category'
+import {tax_topic} from './documents/tax_topic'
 import {callToAction} from './objects/callToAction'
 import {infoSection} from './objects/infoSection'
 import {settings} from './singletons/settings'
@@ -17,6 +19,8 @@ export const schemaTypes = [
   page,
   person,
   article,
+  tax_category,
+  tax_topic,
   // Objects
   button,
   visual,

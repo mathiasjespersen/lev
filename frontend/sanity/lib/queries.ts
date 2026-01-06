@@ -21,6 +21,8 @@ const articleFields = /* groq */ `
   "slug": slug.current,
   excerpt,
   thumbnail,
+  "category": tax_category->title,
+  "topic": topic->title,
   "date": coalesce(date, _updatedAt),
   "author": author->{firstName, lastName, picture},
   postImage,

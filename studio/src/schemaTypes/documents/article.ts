@@ -37,6 +37,13 @@ export const article = defineType({
       initialValue: () => new Date().toISOString(),
     },
     {
+      name: 'tax_category',
+      title: 'Kategori',
+      type: 'reference',
+      to: [{type: 'tax_category'}],      
+      options: {disableNew: true},
+    },
+    {
       name: 'postImage',
       title: 'Post Image',
       type: 'visual',
