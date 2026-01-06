@@ -69,6 +69,12 @@ export const article = defineType({
         },
       ],
     },
+    // Temporary show MUX video
+    {
+      name: 'video',
+      title: 'Video',
+      type: 'mux.video',
+    },    
     {
       name: 'excerpt',
       title: 'Excerpt',
