@@ -3,7 +3,6 @@ import {notFound} from 'next/navigation'
 import {type PortableTextBlock} from 'next-sanity'
 import {Suspense} from 'react'
 
-
 import Visual from '@/app/components/Visual'
 import {MoreArticles} from '@/app/components/Articles'
 import PortableText from '@/app/components/PortableText'
@@ -43,7 +42,7 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
     stega: false,
   })
   const previousImages = (await parent).openGraph?.images || []
-  const ogImage = resolveOpenGraphImage(article?.coverImage)
+  const ogImage = resolveOpenGraphImage(article?.thumbnail)
 
   return {
     title: article?.title,
@@ -76,20 +75,6 @@ export default async function ArticlePage(props: Props) {
             </div>
             <article className="gap-6 grid max-w-4xl">
               {article.postImage && <Visual visual={article.postImage} />}
-              <div className="">
-                {article?.coverImage && (
-                  <Image
-                    id={article.coverImage.asset?._ref || ''}
-                    alt={article.coverImage.alt || ''}
-                    className="rounded-sm w-full"
-                    width={1024}
-                    height={538}
-                    mode="cover"
-                    hotspot={article.coverImage.hotspot}
-                    crop={article.coverImage.crop}
-                  />
-                )}
-              </div>
               {article.content?.length && (
                 <PortableText
                   className="max-w-2xl prose-headings:font-medium prose-headings:tracking-tight"

@@ -41,34 +41,6 @@ export const article = defineType({
       title: 'Post Image',
       type: 'visual',
     },
-    {
-      name: 'thumbnail',
-      title: 'Cover Image',
-      type: 'image',
-      options: {
-        hotspot: true,
-        aiAssist: {
-          imageDescriptionField: 'alt',
-        },
-      },
-      fields: [
-        {
-          name: 'alt',
-          type: 'string',
-          title: 'Alternative text',
-          description: 'Important for SEO and accessibility.',
-          validation: (rule) => {
-            // Custom validation to ensure alt text is provided if the image is present. https://www.sanity.io/docs/validation
-            return rule.custom((alt, context) => {
-              if ((context.document?.coverImage as any)?.asset?._ref && !alt) {
-                return 'Required'
-              }
-              return true
-            })
-          },
-        },
-      ],
-    },
     // Temporary show MUX video
     {
       name: 'video',
@@ -91,7 +63,7 @@ export const article = defineType({
     select: {
       title: 'title',
       date: 'date',
-      media: 'thumbnail',
+      media: 'postImage',
     },
     prepare({title, media, date}) {
       const subtitles = [

@@ -8,7 +8,7 @@ const articleFields = /* groq */ `
   "title": coalesce(title, "Untitled"),
   "slug": slug.current,
   excerpt,
-  coverImage,
+  thumbnail,
   "date": coalesce(date, _updatedAt),
   "author": author->{firstName, lastName, picture},
   postImage,

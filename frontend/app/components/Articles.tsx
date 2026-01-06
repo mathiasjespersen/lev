@@ -34,10 +34,19 @@ const Article = ({article}: {article: AllArticlesQueryResult[number]}) => {
 
 const Articles = ({
   children,
+  heading,
 }: {
   children: React.ReactNode
+  heading?: string
 }) => (
-  <>{children}</>
+  <>
+    {heading && (
+      <h2 className="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-500">
+        {heading}
+      </h2>
+    )}
+    {children}
+  </>
 )
 
 export const MoreArticles = async ({skip, limit}: {skip: string; limit: number}) => {

@@ -20,19 +20,19 @@ export type PageReference = {
   [internalGroqTypeReferenceTo]?: 'page'
 }
 
-export type PostReference = {
+export type ArticleReference = {
   _ref: string
   _type: 'reference'
   _weak?: boolean
-  [internalGroqTypeReferenceTo]?: 'post'
+  [internalGroqTypeReferenceTo]?: 'article'
 }
 
 export type Link = {
   _type: 'link'
-  linkType?: 'href' | 'page' | 'post'
+  linkType?: 'href' | 'page' | 'article'
   href?: string
   page?: PageReference
-  post?: PostReference
+  article?: ArticleReference
   openInNewTab?: boolean
 }
 
@@ -97,10 +97,10 @@ export type BlockContent = Array<
       style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
       listItem?: 'bullet' | 'number'
       markDefs?: Array<{
-        linkType?: 'href' | 'page' | 'post'
+        linkType?: 'href' | 'page' | 'article'
         href?: string
         page?: PageReference
-        post?: PostReference
+        article?: ArticleReference
         openInNewTab?: boolean
         _type: 'link'
         _key: string
@@ -149,17 +149,15 @@ export type Button = {
   link?: Link
 }
 
-export type Article = {
+export type Person = {
   _id: string
-  _type: 'article'
+  _type: 'person'
   _createdAt: string
   _updatedAt: string
   _rev: string
-  title: string
-  slug: Slug
-  date?: string
-  postImage?: Visual
-  thumbnail?: {
+  firstName: string
+  lastName: string
+  picture: {
     asset?: SanityImageAssetReference
     media?: unknown
     hotspot?: SanityImageHotspot
@@ -167,8 +165,6 @@ export type Article = {
     alt?: string
     _type: 'image'
   }
-  excerpt?: string
-  content?: BlockContent
 }
 
 export type SanityImageCrop = {
@@ -185,12 +181,6 @@ export type SanityImageHotspot = {
   y: number
   height: number
   width: number
-}
-
-export type Slug = {
-  _type: 'slug'
-  current: string
-  source?: string
 }
 
 export type Settings = {
@@ -210,10 +200,10 @@ export type Settings = {
     style?: 'normal'
     listItem?: never
     markDefs?: Array<{
-      linkType?: 'href' | 'page' | 'post'
+      linkType?: 'href' | 'page' | 'article'
       href?: string
       page?: PageReference
-      post?: PostReference
+      article?: ArticleReference
       openInNewTab?: boolean
       _type: 'link'
       _key: string
@@ -253,24 +243,17 @@ export type Page = {
   >
 }
 
-export type PersonReference = {
-  _ref: string
-  _type: 'reference'
-  _weak?: boolean
-  [internalGroqTypeReferenceTo]?: 'person'
-}
-
-export type Post = {
+export type Article = {
   _id: string
-  _type: 'post'
+  _type: 'article'
   _createdAt: string
   _updatedAt: string
   _rev: string
   title: string
   slug: Slug
-  content?: BlockContent
-  excerpt?: string
-  coverImage?: {
+  date?: string
+  postImage?: Visual
+  thumbnail?: {
     asset?: SanityImageAssetReference
     media?: unknown
     hotspot?: SanityImageHotspot
@@ -278,26 +261,113 @@ export type Post = {
     alt?: string
     _type: 'image'
   }
-  date?: string
-  author?: PersonReference
+  video?: MuxVideo
+  excerpt?: string
+  content?: BlockContent
 }
 
-export type Person = {
+export type MuxVideoAssetReference = {
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'mux.videoAsset'
+}
+
+export type MuxVideo = {
+  _type: 'mux.video'
+  asset?: MuxVideoAssetReference
+}
+
+export type Slug = {
+  _type: 'slug'
+  current: string
+  source?: string
+}
+
+export type MuxVideoAsset = {
   _id: string
-  _type: 'person'
+  _type: 'mux.videoAsset'
   _createdAt: string
   _updatedAt: string
   _rev: string
-  firstName: string
-  lastName: string
-  picture: {
-    asset?: SanityImageAssetReference
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  }
+  status?: string
+  assetId?: string
+  playbackId?: string
+  filename?: string
+  thumbTime?: number
+  data?: MuxAssetData
+}
+
+export type MuxAssetData = {
+  _type: 'mux.assetData'
+  resolution_tier?: string
+  upload_id?: string
+  created_at?: string
+  id?: string
+  status?: string
+  max_stored_resolution?: string
+  passthrough?: string
+  encoding_tier?: string
+  video_quality?: string
+  master_access?: string
+  aspect_ratio?: string
+  duration?: number
+  max_stored_frame_rate?: number
+  mp4_support?: string
+  max_resolution_tier?: string
+  tracks?: Array<
+    {
+      _key: string
+    } & MuxTrack
+  >
+  playback_ids?: Array<
+    {
+      _key: string
+    } & MuxPlaybackId
+  >
+  static_renditions?: MuxStaticRenditions
+}
+
+export type MuxStaticRenditions = {
+  _type: 'mux.staticRenditions'
+  status?: string
+  files?: Array<
+    {
+      _key: string
+    } & MuxStaticRenditionFile
+  >
+}
+
+export type MuxStaticRenditionFile = {
+  _type: 'mux.staticRenditionFile'
+  name?: string
+  ext?: string
+  height?: number
+  width?: number
+  bitrate?: number
+  filesize?: string
+  type?: string
+  status?: string
+  resolution_tier?: string
+  resolution?: string
+  id?: string
+  passthrough?: string
+}
+
+export type MuxPlaybackId = {
+  _type: 'mux.playbackId'
+  id?: string
+  policy?: string
+}
+
+export type MuxTrack = {
+  _type: 'mux.track'
+  id?: string
+  type?: string
+  max_width?: number
+  max_frame_rate?: number
+  duration?: number
+  max_height?: number
 }
 
 export type SanityAssistInstructionTask = {
@@ -535,7 +605,7 @@ export type Geopoint = {
 
 export type AllSanitySchemaTypes =
   | PageReference
-  | PostReference
+  | ArticleReference
   | Link
   | SanityImageAssetReference
   | CallToAction
@@ -545,15 +615,21 @@ export type AllSanitySchemaTypes =
   | SanityFileAssetReference
   | Visual
   | Button
-  | Article
+  | Person
   | SanityImageCrop
   | SanityImageHotspot
-  | Slug
   | Settings
   | Page
-  | PersonReference
-  | Post
-  | Person
+  | Article
+  | MuxVideoAssetReference
+  | MuxVideo
+  | Slug
+  | MuxVideoAsset
+  | MuxAssetData
+  | MuxStaticRenditions
+  | MuxStaticRenditionFile
+  | MuxPlaybackId
+  | MuxTrack
   | SanityAssistInstructionTask
   | SanityAssistTaskStatus
   | SanityAssistSchemaTypeAnnotations
@@ -598,10 +674,10 @@ export type SettingsQueryResult = {
     style?: 'normal'
     listItem?: never
     markDefs?: Array<{
-      linkType?: 'href' | 'page' | 'post'
+      linkType?: 'article' | 'href' | 'page'
       href?: string
       page?: PageReference
-      post?: PostReference
+      article?: ArticleReference
       openInNewTab?: boolean
       _type: 'link'
       _key: string
@@ -643,12 +719,11 @@ export type GetPageQueryResult = {
           buttonText?: string
           link: {
             _type: 'link'
-            linkType?: 'href' | 'page' | 'post'
+            linkType?: 'article' | 'href' | 'page'
             href?: string
             page: string | null
-            post?: PostReference
+            article: string | null
             openInNewTab?: boolean
-            article: null
           } | null
         } | null
         image?: {
@@ -677,14 +752,13 @@ export type GetPageQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
               listItem?: 'bullet' | 'number'
               markDefs: Array<{
-                linkType?: 'href' | 'page' | 'post'
+                linkType?: 'article' | 'href' | 'page'
                 href?: string
                 page: string | null
-                post?: PostReference
+                article: string | null
                 openInNewTab?: boolean
                 _type: 'link'
                 _key: string
-                article: null
               }> | null
               level?: number
               _type: 'block'
@@ -722,14 +796,21 @@ export type SitemapDataResult = Array<
 
 // Source: sanity/lib/queries.ts
 // Variable: allArticlesQuery
-// Query: *[_type == "article" && defined(slug.current)] | order(date desc, _updatedAt desc) {      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  postImage,  }
+// Query: *[_type == "article" && defined(slug.current)] | order(date desc, _updatedAt desc) {      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  thumbnail,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  postImage,  }
 export type AllArticlesQueryResult = Array<{
   _id: string
   status: 'draft' | 'published'
   title: string
   slug: string
   excerpt: string | null
-  coverImage: null
+  thumbnail: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: string
+    _type: 'image'
+  } | null
   date: string
   author: null
   postImage: Visual | null
@@ -737,14 +818,21 @@ export type AllArticlesQueryResult = Array<{
 
 // Source: sanity/lib/queries.ts
 // Variable: moreArticlesQuery
-// Query: *[_type == "article" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  postImage,  }
+// Query: *[_type == "article" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  thumbnail,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  postImage,  }
 export type MoreArticlesQueryResult = Array<{
   _id: string
   status: 'draft' | 'published'
   title: string
   slug: string
   excerpt: string | null
-  coverImage: null
+  thumbnail: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: string
+    _type: 'image'
+  } | null
   date: string
   author: null
   postImage: Visual | null
@@ -752,7 +840,7 @@ export type MoreArticlesQueryResult = Array<{
 
 // Source: sanity/lib/queries.ts
 // Variable: articleQuery
-// Query: *[_type == "article" && slug.current == $slug] [0] {    content[]{    ...,    markDefs[]{      ...,        _type == "link" => {    "page": page->slug.current,    "article": article->slug.current  }    }  },      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  postImage,  }
+// Query: *[_type == "article" && slug.current == $slug] [0] {    content[]{    ...,    markDefs[]{      ...,        _type == "link" => {    "page": page->slug.current,    "article": article->slug.current  }    }  },      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  thumbnail,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  postImage,  }
 export type ArticleQueryResult = {
   content: Array<
     | {
@@ -765,14 +853,13 @@ export type ArticleQueryResult = {
         style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
         listItem?: 'bullet' | 'number'
         markDefs: Array<{
-          linkType?: 'href' | 'page' | 'post'
+          linkType?: 'article' | 'href' | 'page'
           href?: string
           page: string | null
-          post?: PostReference
+          article: string | null
           openInNewTab?: boolean
           _type: 'link'
           _key: string
-          article: null
         }> | null
         level?: number
         _type: 'block'
@@ -793,7 +880,14 @@ export type ArticleQueryResult = {
   title: string
   slug: string
   excerpt: string | null
-  coverImage: null
+  thumbnail: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: string
+    _type: 'image'
+  } | null
   date: string
   author: null
   postImage: Visual | null
@@ -820,9 +914,9 @@ declare module '@sanity/client' {
     '*[_type == "settings"][0]': SettingsQueryResult
     '\n  *[_type == \'page\' && slug.current == $slug][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    "pageBuilder": pageBuilder[]{\n      ...,\n      _type == "callToAction" => {\n        ...,\n        button {\n          ...,\n          \n  link {\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "article": article->slug.current\n  }\n\n      }\n\n        }\n      },\n      _type == "infoSection" => {\n        content[]{\n          ...,\n          markDefs[]{\n            ...,\n            \n  _type == "link" => {\n    "page": page->slug.current,\n    "article": article->slug.current\n  }\n\n          }\n        }\n      },\n    },\n  }\n': GetPageQueryResult
     '\n  *[_type == "page" || _type == "article" && defined(slug.current)] | order(_type asc) {\n    "slug": slug.current,\n    _type,\n    _updatedAt,\n  }\n': SitemapDataResult
-    '\n  *[_type == "article" && defined(slug.current)] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n  postImage,\n\n  }\n': AllArticlesQueryResult
-    '\n  *[_type == "article" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n  postImage,\n\n  }\n': MoreArticlesQueryResult
-    '\n  *[_type == "article" && slug.current == $slug] [0] {\n    content[]{\n    ...,\n    markDefs[]{\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "article": article->slug.current\n  }\n\n    }\n  },\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n  postImage,\n\n  }\n': ArticleQueryResult
+    '\n  *[_type == "article" && defined(slug.current)] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  thumbnail,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n  postImage,\n\n  }\n': AllArticlesQueryResult
+    '\n  *[_type == "article" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  thumbnail,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n  postImage,\n\n  }\n': MoreArticlesQueryResult
+    '\n  *[_type == "article" && slug.current == $slug] [0] {\n    content[]{\n    ...,\n    markDefs[]{\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "article": article->slug.current\n  }\n\n    }\n  },\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  thumbnail,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n  postImage,\n\n  }\n': ArticleQueryResult
     '\n  *[_type == "article" && defined(slug.current)]\n  {"slug": slug.current}\n': ArticlePagesSlugsResult
     '\n  *[_type == "page" && defined(slug.current)]\n  {"slug": slug.current}\n': PagesSlugsResult
   }
