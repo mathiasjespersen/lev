@@ -1,6 +1,6 @@
 import {Suspense} from 'react'
 
-import {AllPosts} from '@/app/components/Posts'
+import {AllArticles} from '@/app/components/Articles'
 import {settingsQuery} from '@/sanity/lib/queries'
 import {sanityFetch} from '@/sanity/lib/live'
 
@@ -14,7 +14,7 @@ export default async function Page() {
       <div className="relative">
         <div className="container">
           <aside>
-            <Suspense>{await AllPosts()}</Suspense>
+            <Suspense>{await AllArticles()}</Suspense>
           </aside>
         </div>
       </div>

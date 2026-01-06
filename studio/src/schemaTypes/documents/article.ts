@@ -1,6 +1,6 @@
 import {DocumentTextIcon} from '@sanity/icons'
 import {format, parseISO} from 'date-fns'
-import {defineField, defineType} from 'sanity'
+import {defineType} from 'sanity'
 
 export const article = defineType({
   name: 'article',
@@ -31,6 +31,11 @@ export const article = defineType({
       title: 'Date',
       type: 'datetime',
       initialValue: () => new Date().toISOString(),
+    },
+    {
+      name: 'postImage',
+      title: 'Post Image',
+      type: 'visual',
     },
     {
       name: 'thumbnail',

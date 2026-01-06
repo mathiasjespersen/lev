@@ -8,6 +8,7 @@ import {settings} from './singletons/settings'
 import {link} from './objects/link'
 import {blockContent} from './objects/blockContent'
 import button from './objects/button'
+import visual from './objects/visual'
 import {blockContentTextOnly} from './objects/blockContentTextOnly'
 
 export const schemaTypes = [
@@ -20,6 +21,7 @@ export const schemaTypes = [
   article,
   // Objects
   button,
+  visual,
   blockContent,
   blockContentTextOnly,
   infoSection,

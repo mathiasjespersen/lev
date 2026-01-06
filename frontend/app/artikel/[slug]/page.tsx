@@ -3,11 +3,13 @@ import {notFound} from 'next/navigation'
 import {type PortableTextBlock} from 'next-sanity'
 import {Suspense} from 'react'
 
-import {MorePosts} from '@/app/components/Posts'
+
+// import Visual from '@/app/components/Visual'
+import {MoreArticles} from '@/app/components/Articles'
 import PortableText from '@/app/components/PortableText'
 import Image from '@/app/components/SanityImage'
 import {sanityFetch} from '@/sanity/lib/live'
-import {postPagesSlugs, postQuery} from '@/sanity/lib/queries'
+import {articlePagesSlugs, articleQuery} from '@/sanity/lib/queries'
 import {resolveOpenGraphImage} from '@/sanity/lib/utils'
 
 type Props = {
@@ -20,7 +22,7 @@ type Props = {
  */
 export async function generateStaticParams() {
   const {data} = await sanityFetch({
-    query: postPagesSlugs,
+    query: articlePagesSlugs,
     // Use the published perspective in generateStaticParams
     perspective: 'published',
     stega: false,
@@ -34,33 +36,29 @@ export async function generateStaticParams() {
  */
 export async function generateMetadata(props: Props, parent: ResolvingMetadata): Promise<Metadata> {
   const params = await props.params
-  const {data: post} = await sanityFetch({
-    query: postQuery,
+  const {data: article} = await sanityFetch({
+    query: articleQuery,
     params,
     // Metadata should never contain stega
     stega: false,
   })
   const previousImages = (await parent).openGraph?.images || []
-  const ogImage = resolveOpenGraphImage(post?.coverImage)
+  const ogImage = resolveOpenGraphImage(article?.coverImage)
 
   return {
-    authors:
-      post?.author?.firstName && post?.author?.lastName
-        ? [{name: `${post.author.firstName} ${post.author.lastName}`}]
-        : [],
-    title: post?.title,
-    description: post?.excerpt,
+    title: article?.title,
+    description: article?.excerpt,
     openGraph: {
       images: ogImage ? [ogImage, ...previousImages] : previousImages,
     },
   } satisfies Metadata
 }
 
-export default async function PostPage(props: Props) {
+export default async function ArticlePage(props: Props) {
   const params = await props.params
-  const [{data: post}] = await Promise.all([sanityFetch({query: postQuery, params})])
+  const [{data: article}] = await Promise.all([sanityFetch({query: articleQuery, params})])
 
-  if (!post?._id) {
+  if (!article?._id) {
     return notFound()
   }
 
@@ -71,28 +69,29 @@ export default async function PostPage(props: Props) {
           <div>
             <div className="pb-6 grid gap-6 mb-6 border-b border-gray-100">
               <div className="max-w-3xl flex flex-col gap-6">
-                <h1 className="text-4xl text-gray-900 sm:text-5xl lg:text-7xl">{post.title}</h1>
+                <h1 className="text-4xl text-gray-900 sm:text-5xl lg:text-7xl">{article.title}</h1>
               </div>
             </div>
             <article className="gap-6 grid max-w-4xl">
+              {/* {article.postImage && <Visual visual={article.postImage} />} */}
               <div className="">
-                {post?.coverImage && (
+                {article?.coverImage && (
                   <Image
-                    id={post.coverImage.asset?._ref || ''}
-                    alt={post.coverImage.alt || ''}
+                    id={article.coverImage.asset?._ref || ''}
+                    alt={article.coverImage.alt || ''}
                     className="rounded-sm w-full"
                     width={1024}
                     height={538}
                     mode="cover"
-                    hotspot={post.coverImage.hotspot}
-                    crop={post.coverImage.crop}
+                    hotspot={article.coverImage.hotspot}
+                    crop={article.coverImage.crop}
                   />
                 )}
               </div>
-              {post.content?.length && (
+              {article.content?.length && (
                 <PortableText
                   className="max-w-2xl prose-headings:font-medium prose-headings:tracking-tight"
-                  value={post.content as PortableTextBlock[]}
+                  value={article.content as PortableTextBlock[]}
                 />
               )}
             </article>
@@ -102,7 +101,7 @@ export default async function PostPage(props: Props) {
       <div className="border-t border-gray-100 bg-gray-50">
         <div className="container py-12 lg:py-24 grid gap-12">
           <aside>
-            <Suspense>{await MorePosts({skip: post._id, limit: 2})}</Suspense>
+            <Suspense>{await MoreArticles({skip: article._id, limit: 2})}</Suspense>
           </aside>
         </div>
       </div>
