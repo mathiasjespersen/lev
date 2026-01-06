@@ -1,12 +1,29 @@
-'use client';
-
 import type {Visual} from '@/sanity.types'
 import { SanityImage } from 'sanity-image';
 import {dataset, projectId} from '@/sanity/lib/api'
 
 import MuxPlayer from "@mux/mux-player-react";
+import { sanityFetch } from '@/sanity/lib/live';
 
-export default function Visual({visual}: {visual: Visual}) {
+const getVideoId = async (videoRef: any) => {
+    const [{data: videoData}] = await Promise.all([sanityFetch({query: `*[_id == "${videoRef}"][0] {
+        ...,
+        asset->
+    }`})])
+
+    return videoData || null;
+}
+
+export default async function Visual({visual}: {visual: Visual}) {
+    console.log('Rendering Visual:', visual);
+    let videoData = null;
+
+    if (visual.mediaType === 'video') {
+        videoData = await getVideoId(visual.video?.asset?._ref)
+    }
+
+    console.log('Video ID:', videoData);
+
     return (
         <>
             {
@@ -20,14 +37,15 @@ export default function Visual({visual}: {visual: Visual}) {
             )
             }
             {
-            visual.mediaType === 'video' && visual.video && (visual.video.asset as any)?.playbackId && (
+            videoData && visual.mediaType === 'video' && visual.video && (
                 <MuxPlayer
                     className='w-full'
                     style={{
-                        aspectRatio: (visual.video.asset as any)?.data.aspect_ratio.replace(':', '/') || '16/9'
+                        aspectRatio: (videoData.asset as any)?.data.aspect_ratio.replace(':', '/') || '16/9'
                     }}
-                    playbackId={(visual.video.asset as any)?.playbackId}
+                    playbackId={videoData.playbackId}
                 />
+                // playbackId={(visual.video.asset as any)?.playbackId}
             )
             }
         </>
