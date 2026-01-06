@@ -4,7 +4,7 @@ import {type PortableTextBlock} from 'next-sanity'
 import {Suspense} from 'react'
 
 
-// import Visual from '@/app/components/Visual'
+import Visual from '@/app/components/Visual'
 import {MoreArticles} from '@/app/components/Articles'
 import PortableText from '@/app/components/PortableText'
 import Image from '@/app/components/SanityImage'
@@ -62,6 +62,8 @@ export default async function ArticlePage(props: Props) {
     return notFound()
   }
 
+  console.log('Rendering article:', article)
+
   return (
     <>
       <div className="">
@@ -73,7 +75,7 @@ export default async function ArticlePage(props: Props) {
               </div>
             </div>
             <article className="gap-6 grid max-w-4xl">
-              {/* {article.postImage && <Visual visual={article.postImage} />} */}
+              {article.postImage && <Visual visual={article.postImage} />}
               <div className="">
                 {article?.coverImage && (
                   <Image

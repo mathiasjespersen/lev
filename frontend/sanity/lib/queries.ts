@@ -11,6 +11,7 @@ const articleFields = /* groq */ `
   coverImage,
   "date": coalesce(date, _updatedAt),
   "author": author->{firstName, lastName, picture},
+  postImage,
 `
 
 const linkReference = /* groq */ `
