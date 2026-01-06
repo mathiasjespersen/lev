@@ -18,7 +18,7 @@ export default function Visual({visual}: {visual: Visual}) {
             {/* {
                 visual.mediaType === 'video' && visual.video && (
                     <video
-                        src={visual.video.url}
+                        src={visual.video.asset}
                         controls
                         className="w-full h-auto"
                     >
