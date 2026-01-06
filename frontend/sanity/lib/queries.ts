@@ -4,10 +4,6 @@ export const settingsQuery = defineQuery(`*[_type == "settings"][0]`)
 
 const visualFields = /* groq */ `
   ...,
-  image{
-    ...,
-    asset->
-  },
   video{
     ...,
     asset->
@@ -23,7 +19,7 @@ const articleFields = /* groq */ `
   thumbnail,
   "date": coalesce(date, _updatedAt),
   "author": author->{firstName, lastName, picture},
-  postImage,
+  postImage{${visualFields}},
 `
 
 const linkReference = /* groq */ `

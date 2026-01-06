@@ -7,11 +7,6 @@ import {dataset, projectId} from '@/sanity/lib/api'
 import MuxPlayer from "@mux/mux-player-react";
 
 export default function Visual({visual}: {visual: Visual}) {
-    console.log('Visual component received visual:', visual);
-    if (!visual || (visual.mediaType === 'image' && !visual.image) || (visual.mediaType === 'video' && !visual.video)) {
-        return null;
-    }
-
     return (
         <>
             {
