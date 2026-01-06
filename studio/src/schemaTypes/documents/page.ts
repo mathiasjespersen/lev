@@ -1,5 +1,6 @@
 import {defineField, defineType} from 'sanity'
 import {DocumentIcon} from '@sanity/icons'
+import { AutoSlugInput } from '../../components/AutoSlugInput'
 
 /**
  * Page schema.  Define and edit the fields for the 'page' content type.
@@ -23,11 +24,16 @@ export const page = defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      validation: (Rule) => Rule.required(),
-      options: {
-        source: 'name',
-        maxLength: 96,
+      description: 'A slug is required for the article to show up in the preview',
+      components: {
+        input: AutoSlugInput,
       },
+      options: {
+        source: 'title',
+        maxLength: 96,
+        isUnique: (value, context) => context.defaultIsUnique(value, context),
+      },
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'heading',

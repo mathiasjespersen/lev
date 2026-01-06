@@ -1,6 +1,7 @@
 import {DocumentTextIcon} from '@sanity/icons'
 import {format, parseISO} from 'date-fns'
 import {defineType} from 'sanity'
+import {AutoSlugInput} from '../../components/AutoSlugInput'
 
 export const article = defineType({
   name: 'article',
@@ -18,7 +19,10 @@ export const article = defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      description: 'A slug is required for the post to show up in the preview',
+      description: 'A slug is required for the article to show up in the preview',
+      components: {
+        input: AutoSlugInput,
+      },
       options: {
         source: 'title',
         maxLength: 96,

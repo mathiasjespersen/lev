@@ -14,21 +14,20 @@ const Article = ({article}: {article: AllArticlesQueryResult[number]}) => {
     <article
       data-sanity={dataAttr({id: _id, type: 'article', path: 'title'}).toString()}
       key={_id}
-      className="border border-gray-200 rounded-sm p-6 bg-gray-50 flex flex-col justify-between transition-colors hover:bg-white relative"
+      className="border border-gray-200 rounded-sm bg-gray-50 flex flex-col justify-between transition-colors hover:bg-white relative"
     >
-      <Link className="hover:text-brand underline transition-colors" href={`/artikel/${slug}`}>
-        <span className="absolute inset-0 z-10" />
-      </Link>
-      <div>
-        <h3 className="text-2xl mb-4">{title}</h3>
+      <Link className="block p-6" href={`/artikel/${slug}`}>
+        <div>
+          <h3 className="text-2xl mb-4">{title}</h3>
 
-        <p className="line-clamp-3 text-sm leading-6 text-gray-600 max-w-[70ch]">{excerpt}</p>
-      </div>
-      <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-100">
-        <time className="text-gray-500 text-xs font-mono" dateTime={date}>
-          <DateComponent dateString={date} />
-        </time>
-      </div>
+          <p className="line-clamp-3 text-sm leading-6 text-gray-600 max-w-[70ch]">{excerpt}</p>
+        </div>
+        <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-100">
+          <time className="text-gray-500 text-xs font-mono" dateTime={date}>
+            <DateComponent dateString={date} />
+          </time>
+        </div>
+      </Link>
     </article>
   )
 }
