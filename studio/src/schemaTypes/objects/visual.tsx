@@ -9,7 +9,7 @@ export default defineType({
       name: 'mediaType',
       title: 'Media Type',
       type: 'string',
-      initialValue: 'image',
+      // initialValue: 'image',
       options: {
         list: [
           {title: 'Image', value: 'image'},

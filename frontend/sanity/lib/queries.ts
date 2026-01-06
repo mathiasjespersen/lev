@@ -3,8 +3,7 @@ import {defineQuery} from 'next-sanity'
 export const settingsQuery = defineQuery(`*[_type == "settings"][0]`)
 
 const visualFields = /* groq */ `
-  _type,
-  mediaType,
+  ...,
   image{
     ...,
     asset->
@@ -24,7 +23,7 @@ const articleFields = /* groq */ `
   thumbnail,
   "date": coalesce(date, _updatedAt),
   "author": author->{firstName, lastName, picture},
-  postImage{${visualFields}},
+  postImage,
 `
 
 const linkReference = /* groq */ `

@@ -119,13 +119,6 @@ export type BlockContent = Array<
     }
 >
 
-export type SanityFileAssetReference = {
-  _ref: string
-  _type: 'reference'
-  _weak?: boolean
-  [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
-}
-
 export type Visual = {
   _type: 'visual'
   mediaType?: 'image' | 'video'
@@ -136,11 +129,7 @@ export type Visual = {
     crop?: SanityImageCrop
     _type: 'image'
   }
-  video?: {
-    asset?: SanityFileAssetReference
-    media?: unknown
-    _type: 'file'
-  }
+  video?: MuxVideo
 }
 
 export type Button = {
@@ -253,14 +242,6 @@ export type Article = {
   slug: Slug
   date?: string
   postImage?: Visual
-  thumbnail?: {
-    asset?: SanityImageAssetReference
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  }
   video?: MuxVideo
   excerpt?: string
   content?: BlockContent
@@ -612,7 +593,6 @@ export type AllSanitySchemaTypes =
   | InfoSection
   | BlockContentTextOnly
   | BlockContent
-  | SanityFileAssetReference
   | Visual
   | Button
   | Person
@@ -803,14 +783,7 @@ export type AllArticlesQueryResult = Array<{
   title: string
   slug: string
   excerpt: string | null
-  thumbnail: {
-    asset?: SanityImageAssetReference
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  } | null
+  thumbnail: null
   date: string
   author: null
   postImage: Visual | null
@@ -825,14 +798,7 @@ export type MoreArticlesQueryResult = Array<{
   title: string
   slug: string
   excerpt: string | null
-  thumbnail: {
-    asset?: SanityImageAssetReference
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  } | null
+  thumbnail: null
   date: string
   author: null
   postImage: Visual | null
@@ -880,14 +846,7 @@ export type ArticleQueryResult = {
   title: string
   slug: string
   excerpt: string | null
-  thumbnail: {
-    asset?: SanityImageAssetReference
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  } | null
+  thumbnail: null
   date: string
   author: null
   postImage: Visual | null
