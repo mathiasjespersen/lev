@@ -1,12 +1,9 @@
 import {person} from './documents/person'
 import {page} from './documents/page'
 import {article} from './documents/article'
-<<<<<<< Updated upstream
 import {tax_category} from './documents/tax_category'
 import {tax_topic} from './documents/tax_topic'
-=======
 import {blockElement} from './documents/blockElements'
->>>>>>> Stashed changes
 import {callToAction} from './objects/callToAction'
 import {infoSection} from './objects/infoSection'
 import {settings} from './singletons/settings'
@@ -27,12 +24,9 @@ export const schemaTypes = [
   page,
   person,
   article,
-<<<<<<< Updated upstream
   tax_category,
   tax_topic,
-=======
   blockElement,
->>>>>>> Stashed changes
   // Objects
   button,
   visual,
