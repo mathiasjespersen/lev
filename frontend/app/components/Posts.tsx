@@ -1,22 +1,22 @@
 import Link from 'next/link'
 
 import {sanityFetch} from '@/sanity/lib/live'
-import {moreArticlesQuery, allArticlesQuery} from '@/sanity/lib/queries'
-import {AllArticlesQueryResult} from '@/sanity.types'
+import {morePostsQuery, allPostsQuery} from '@/sanity/lib/queries'
+import {AllPostsQueryResult} from '@/sanity.types'
 import DateComponent from '@/app/components/Date'
 import OnBoarding from '@/app/components/Onboarding'
 import {dataAttr} from '@/sanity/lib/utils'
 
-const Article = ({article}: {article: AllArticlesQueryResult[number]}) => {
+const Article = ({article}: {article: AllPostsQueryResult[number]}) => {
   const {_id, title, slug, excerpt, date, category} = article
 
   return (
     <article
-      data-sanity={dataAttr({id: _id, type: 'article', path: 'title'}).toString()}
+      data-sanity={dataAttr({id: _id, type: 'post', path: 'title'}).toString()}
       key={_id}
       className="border border-gray-200 rounded-sm bg-gray-50 flex flex-col justify-between transition-colors hover:bg-white relative"
     >
-      <Link className="block p-6" href={`/artikel/${slug}`}>
+      <Link className="block p-6" href={`/indlaeg/${slug}`}>
         <div className="flex flex-col gap-y-2 items-start">
           <h3 className="text-2xl">{title}</h3>
           {article.category && <span className="text-sm text-gray-600 bg-gray-200 px-2 py-1 rounded">{article.category}</span>}
@@ -49,9 +49,9 @@ const Articles = ({
   </>
 )
 
-export const MoreArticles = async ({skip, limit}: {skip: string; limit: number}) => {
+export const MorePosts = async ({skip, limit}: {skip: string; limit: number}) => {
   const {data} = await sanityFetch({
-    query: moreArticlesQuery,
+    query: morePostsQuery,
     params: {skip, limit},
   })
 
@@ -61,15 +61,15 @@ export const MoreArticles = async ({skip, limit}: {skip: string; limit: number})
 
   return (
     <Articles heading={`Recent Articles (${data?.length})`}>
-      {data?.map((article: AllArticlesQueryResult[number]) => (
+      {data?.map((article: AllPostsQueryResult[number]) => (
         <Article key={article._id} article={article} />
       ))}
     </Articles>
   )
 }
 
-export const AllArticles = async () => {
-  const {data} = await sanityFetch({query: allArticlesQuery})
+export const AllPosts = async () => {
+  const {data} = await sanityFetch({query: allPostsQuery})
 
   if (!data || data.length === 0) {
     return <OnBoarding />
@@ -77,7 +77,7 @@ export const AllArticles = async () => {
 
   return (
     <Articles>
-      {data.map((article: AllArticlesQueryResult[number]) => (
+      {data.map((article: AllPostsQueryResult[number]) => (
         <Article key={article._id} article={article} />
       ))}
     </Articles>

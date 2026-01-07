@@ -14,6 +14,17 @@ const visualFields = /* groq */ `
   }
 `
 
+const postFields = /* groq */ `
+  _id,
+  "status": select(_originalId in path("drafts.**") => "draft", "published"),
+  "title": coalesce(title, "Untitled"),
+  "slug": slug.current,
+  excerpt,
+  thumbnail,
+  "category": tax_category->title,
+  "topic": topic->title,
+  "date": coalesce(date, _updatedAt),
+`
 const articleFields = /* groq */ `
   _id,
   "status": select(_originalId in path("drafts.**") => "draft", "published"),
@@ -24,13 +35,13 @@ const articleFields = /* groq */ `
   "category": tax_category->title,
   "topic": topic->title,
   "date": coalesce(date, _updatedAt),
-  "author": author->{firstName, lastName, picture},
   postImage,
 `
 
 const linkReference = /* groq */ `
   _type == "link" => {
     "page": page->slug.current,
+    "post": post->slug.current,
     "article": article->slug.current
   }
 `
@@ -41,6 +52,15 @@ const linkFields = /* groq */ `
       ${linkReference}
       }
 `
+
+export const sitemapData = defineQuery(`
+  *[_type == "page" || _type == "post" && defined(slug.current) || _type == "article" && defined(slug.current)] | order(_type asc) {
+    "slug": slug.current,
+    _type,
+    _updatedAt,
+  }
+`)
+
 
 export const getPageQuery = defineQuery(`
   *[_type == 'page' && slug.current == $slug][0]{
@@ -72,13 +92,33 @@ export const getPageQuery = defineQuery(`
   }
 `)
 
-export const sitemapData = defineQuery(`
-  *[_type == "page" || _type == "article" && defined(slug.current)] | order(_type asc) {
-    "slug": slug.current,
-    _type,
-    _updatedAt,
+
+export const allPostsQuery = defineQuery(`
+  *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) {
+    ${postFields}
   }
 `)
+
+export const morePostsQuery = defineQuery(`
+  *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {
+    ${postFields}
+  }
+`)
+
+export const postQuery = defineQuery(`
+  *[_type == "post" && slug.current == $slug] [0] {
+    content[]{
+    ...,
+    markDefs[]{
+      ...,
+      ${linkReference}
+    }
+  },
+    ${postFields}
+  }
+`)
+
+
 
 export const allArticlesQuery = defineQuery(`
   *[_type == "article" && defined(slug.current)] | order(date desc, _updatedAt desc) {
@@ -103,6 +143,13 @@ export const articleQuery = defineQuery(`
   },
     ${articleFields}
   }
+`)
+
+
+
+export const postPagesSlugs = defineQuery(`
+  *[_type == "post" && defined(slug.current)]
+  {"slug": slug.current}
 `)
 
 export const articlePagesSlugs = defineQuery(`

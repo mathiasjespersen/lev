@@ -7,6 +7,12 @@ export const structure: StructureResolver = (S: StructureBuilder) =>
     .items([
 
       S.listItem()
+        .title('Indlæg')
+        .schemaType('post')
+        .icon(DocumentTextIcon)
+        .child(S.documentTypeList('post').title('Indlæg')),
+      
+      S.listItem()
         .title('Artikler')
         .schemaType('article')
         .icon(DocumentTextIcon)

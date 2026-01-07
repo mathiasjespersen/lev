@@ -3,18 +3,19 @@ import {defineField, defineType} from 'sanity'
 export default defineType({
   name: 'visual',
   type: 'object',
-  description: 'Displays an image or video loop',
+  description: 'Viser et billede eller videoloop',
   fields: [
     defineField({
       name: 'mediaType',
-      title: 'Media Type',
+      title: 'Type',
       type: 'string',
       // initialValue: 'image',
       options: {
         list: [
-          {title: 'Image', value: 'image'},
-          {title: 'Video', value: 'video'},
+          {title: 'Billede', value: 'image'},
+          {title: 'Videoloop', value: 'video'},
         ],
+        direction: 'horizontal',
         layout: 'radio',
       },
     }),

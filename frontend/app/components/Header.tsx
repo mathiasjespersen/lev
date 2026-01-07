@@ -17,23 +17,24 @@ export default async function Header() {
             </span>
           </Link>
 
-          <nav>
+            <nav>
             <ul
               role="list"
               className="flex items-center gap-4 md:gap-6 leading-5 text-xs sm:text-base tracking-tight font-mono"
             >
-              <li>
-                <Link href="/submit-content" className="hover:underline">
-                  Indsend artikel
-                </Link>
-              </li>
-              <li>
-                <Link href="/artikler" className="hover:underline">
-                  Artikler
-                </Link>
-              </li>
+              {[
+                { href: '/indlaeg', label: 'Indlæg' },
+                { href: '/artikel', label: 'Artikler' },
+                { href: '/submit-content', label: 'Indsend artikel' }
+                ].map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="hover:underline">
+                  {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
-          </nav>
+            </nav>
         </div>
       </div>
     </header>

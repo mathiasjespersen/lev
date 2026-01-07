@@ -1,3 +1,4 @@
+import {post} from './documents/post'
 import {person} from './documents/person'
 import {page} from './documents/page'
 import {article} from './documents/article'
@@ -21,6 +22,7 @@ export const schemaTypes = [
   // Singletons
   settings,
   // Documents
+  post,
   page,
   person,
   article,
