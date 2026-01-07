@@ -18,4 +18,17 @@ export default defineType({
     }),
   ],
   options: {collapsible: true},
+  preview: {
+    select: {
+      title: 'title',
+      images: 'images',
+    },
+    prepare({title, images}) {
+      const imageCount = Array.isArray(images) ? images.length : 0
+      return {
+        title: title || 'Galleri',
+        subtitle: `${imageCount} billede${imageCount !== 1 ? 'r' : ''}`,
+      }
+    },
+  },
 })

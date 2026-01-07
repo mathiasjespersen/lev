@@ -18,4 +18,15 @@ export default defineType({
     }),
   ],
   options: {collapsible: true},
+  preview: {
+    select: {
+      title: 'title',
+    },
+    prepare({title}) {
+      return {
+        title: title || 'CTA',
+        subtitle: 'Call to Action',
+      }
+    },
+  },
 })

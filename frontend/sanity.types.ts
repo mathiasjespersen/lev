@@ -29,6 +29,18 @@ export type Cta = {
   link?: Link
 }
 
+export type ReusableBlocksReference = {
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'reusableBlocks'
+}
+
+export type ReusableBlock = {
+  _type: 'reusableBlock'
+  blockContent: ReusableBlocksReference
+}
+
 export type PageReference = {
   _ref: string
   _type: 'reference'
@@ -83,12 +95,60 @@ export type InfoSection = {
   content?: BlockContent
 }
 
+export type BlockVariantWithReusableBlock = {
+  _type: 'blockVariantWithReusableBlock'
+  variant: Array<
+    | ({
+        _key: string
+      } & ReusableBlock)
+    | ({
+        _key: string
+      } & Cta)
+    | ({
+        _key: string
+      } & Gallery)
+  >
+}
+
 export type BlockVariant = {
   _type: 'blockVariant'
-  variant: 'cta' | 'gallery'
-  cta?: Cta
-  gallery?: Gallery
+  variant: Array<
+    | ({
+        _key: string
+      } & Cta)
+    | ({
+        _key: string
+      } & Gallery)
+  >
 }
+
+export type BlockContentWithBlocks = Array<
+  | {
+      children?: Array<{
+        marks?: Array<string>
+        text?: string
+        _type: 'span'
+        _key: string
+      }>
+      style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+      listItem?: 'bullet' | 'number'
+      markDefs?: Array<{
+        linkType?: 'href' | 'page' | 'article'
+        href?: string
+        page?: PageReference
+        article?: ArticleReference
+        openInNewTab?: boolean
+        _type: 'link'
+        _key: string
+      }>
+      level?: number
+      _type: 'block'
+      _key: string
+    }
+  | ({
+      _key: string
+    } & BlockVariantWithReusableBlock)
+>
 
 export type BlockContentTextOnly = Array<{
   children?: Array<{
@@ -161,9 +221,9 @@ export type Button = {
   link?: Link
 }
 
-export type BlockElement = {
+export type ReusableBlocks = {
   _id: string
-  _type: 'blockElement'
+  _type: 'reusableBlocks'
   _createdAt: string
   _updatedAt: string
   _rev: string
@@ -311,12 +371,26 @@ export type Article = {
   _rev: string
   title: string
   slug: Slug
+  blocks?: Array<
+    {
+      _key: string
+    } & BlockVariantWithReusableBlock
+  >
+  contentWithBlocks?: BlockContentWithBlocks
   date?: string
   tax_category?: Tax_categoryReference
-  postImage?: Visual
-  video?: MuxVideo
   excerpt?: string
   content?: BlockContent
+}
+
+export type Tax_category = {
+  _id: string
+  _type: 'tax_category'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title: string
+  slug: Slug
 }
 
 export type MuxVideoAssetReference = {
@@ -329,16 +403,6 @@ export type MuxVideoAssetReference = {
 export type MuxVideo = {
   _type: 'mux.video'
   asset?: MuxVideoAssetReference
-}
-
-export type Tax_category = {
-  _id: string
-  _type: 'tax_category'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  title: string
-  slug: Slug
 }
 
 export type MuxVideoAsset = {
@@ -663,18 +727,22 @@ export type Geopoint = {
 export type AllSanitySchemaTypes =
   | Gallery
   | Cta
+  | ReusableBlocksReference
+  | ReusableBlock
   | PageReference
   | ArticleReference
   | Link
   | SanityImageAssetReference
   | CallToAction
   | InfoSection
+  | BlockVariantWithReusableBlock
   | BlockVariant
+  | BlockContentWithBlocks
   | BlockContentTextOnly
   | BlockContent
   | Visual
   | Button
-  | BlockElement
+  | ReusableBlocks
   | Tax_topic
   | Slug
   | Person
@@ -685,9 +753,9 @@ export type AllSanitySchemaTypes =
   | Settings
   | Page
   | Article
+  | Tax_category
   | MuxVideoAssetReference
   | MuxVideo
-  | Tax_category
   | MuxVideoAsset
   | MuxAssetData
   | MuxStaticRenditions
@@ -957,7 +1025,7 @@ export type AllArticlesQueryResult = Array<{
   category: string | null
   topic: null
   date: string
-  postImage: Visual | null
+  postImage: null
 }>
 
 // Source: sanity/lib/queries.ts
@@ -973,7 +1041,7 @@ export type MoreArticlesQueryResult = Array<{
   category: string | null
   topic: null
   date: string
-  postImage: Visual | null
+  postImage: null
 }>
 
 // Source: sanity/lib/queries.ts
@@ -1023,7 +1091,7 @@ export type ArticleQueryResult = {
   category: string | null
   topic: null
   date: string
-  postImage: Visual | null
+  postImage: null
 } | null
 
 // Source: sanity/lib/queries.ts

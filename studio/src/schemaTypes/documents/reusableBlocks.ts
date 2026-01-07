@@ -1,9 +1,9 @@
 import {BlockElementIcon} from '@sanity/icons'
 import {defineType} from 'sanity'
 
-export const blockElement = defineType({
-  name: 'blockElement',
-  title: 'Blokke',
+export const reusableBlocks = defineType({
+  name: 'reusableBlocks',
+  title: 'Genanvendelige blokke',
   icon: BlockElementIcon,
   type: 'document',
   fields: [

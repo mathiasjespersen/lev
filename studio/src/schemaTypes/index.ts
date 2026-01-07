@@ -4,7 +4,7 @@ import {page} from './documents/page'
 import {article} from './documents/article'
 import {tax_category} from './documents/tax_category'
 import {tax_topic} from './documents/tax_topic'
-import {blockElement} from './documents/blockElements'
+import {reusableBlocks} from './documents/reusableBlocks'
 import {callToAction} from './objects/callToAction'
 import {infoSection} from './objects/infoSection'
 import {settings} from './singletons/settings'
@@ -13,10 +13,13 @@ import {blockContent} from './objects/blockContent'
 import button from './objects/button'
 import visual from './objects/visual'
 import {blockContentTextOnly} from './objects/blockContentTextOnly'
+import {blockContentWithBlocks} from './objects/blockContentWithBlocks'
 import {blockVariant} from './objects/blockVariant'
+import {blockVariantWithReusableBlock} from './objects/blockVariantWithReusableBlock'
 
-import cta from './blockElements/cta'
-import gallery from './blockElements/gallery'
+import reusableBlock from './blocks/reusableBlock'
+import cta from './blocks/cta'
+import gallery from './blocks/gallery'
 
 export const schemaTypes = [
   // Singletons
@@ -28,17 +31,20 @@ export const schemaTypes = [
   article,
   tax_category,
   tax_topic,
-  blockElement,
+  reusableBlocks,
   // Objects
   button,
   visual,
   blockContent,
   blockContentTextOnly,
+  blockContentWithBlocks,
   blockVariant,
+  blockVariantWithReusableBlock,
   infoSection,
   callToAction,
   link,
   // Block Elements
+  reusableBlock,
   cta,
   gallery,
 ]
