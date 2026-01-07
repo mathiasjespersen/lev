@@ -1,4 +1,4 @@
-import {CogIcon, DocumentTextIcon} from '@sanity/icons'
+import {CogIcon, DocumentTextIcon, BlockElementIcon} from '@sanity/icons'
 import type {StructureBuilder, StructureResolver} from 'sanity/structure'
 
 export const structure: StructureResolver = (S: StructureBuilder) =>
@@ -39,6 +39,14 @@ export const structure: StructureResolver = (S: StructureBuilder) =>
                 .child(S.documentTypeList('tax_topic').title('Emner')),
             ])
         ),
+
+      S.divider(),
+
+      S.listItem()
+        .title('Blokke')
+        .schemaType('blockElement')
+        .icon(BlockElementIcon)
+        .child(S.documentTypeList('blockElement').title('Blokke')),
 
       S.divider(),
 

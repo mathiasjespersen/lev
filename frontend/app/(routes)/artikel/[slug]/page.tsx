@@ -60,8 +60,6 @@ export default async function ArticlePage(props: Props) {
     return notFound()
   }
 
-  console.log('Rendering article:', article)
-
   return (
     <>
       <div className="">

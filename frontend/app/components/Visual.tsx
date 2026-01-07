@@ -10,19 +10,15 @@ const getVideoId = async (videoRef: any) => {
         ...,
         asset->
     }`})])
-
     return videoData || null;
 }
 
 export default async function Visual({visual}: {visual: Visual}) {
-    console.log('Rendering Visual:', visual);
     let videoData = null;
 
     if (visual.mediaType === 'video') {
         videoData = await getVideoId(visual.video?.asset?._ref)
     }
-
-    console.log('Video ID:', videoData);
 
     return (
         <>
@@ -45,7 +41,6 @@ export default async function Visual({visual}: {visual: Visual}) {
                     }}
                     playbackId={videoData.playbackId}
                 />
-                // playbackId={(visual.video.asset as any)?.playbackId}
             )
             }
         </>
