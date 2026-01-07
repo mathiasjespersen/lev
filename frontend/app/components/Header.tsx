@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import {settingsQuery} from '@/sanity/lib/queries'
 import {sanityFetch} from '@/sanity/lib/live'
+import LogoLev from '@/app/components/Logo'
 
 export default async function Header() {
   const {data: settings} = await sanityFetch({
@@ -8,19 +9,18 @@ export default async function Header() {
   })
 
   return (
-    <header className="fixed z-50 h-24 inset-0 bg-white/80 flex items-center backdrop-blur-lg">
-      <div className="container py-6 px-2 sm:px-6">
-        <div className="flex items-center justify-between gap-5">
-          <Link className="flex items-center gap-2" href="/">
-            <span className="text-lg sm:text-2xl pl-2 font-semibold">
-              {settings?.title || 'Lev'}
-            </span>
+    <header className="fixed z-50 h-24 inset-0 flex items-center">
+      <div className="lev-grid w-full">
+        <div className="col-span-12 flex items-center justify-between gap-5">
+      
+          <Link href="/">
+            <LogoLev className="text-[#100E62]" />
           </Link>
 
-            <nav>
+          <nav>
             <ul
               role="list"
-              className="flex items-center gap-4 md:gap-6 leading-5 text-xs sm:text-base tracking-tight font-mono"
+              className="flex items-center gap-4 md:gap-6 leading-5 text-xs sm:text-base tracking-tight"
             >
               {[
                 { href: '/indlaeg', label: 'Indlæg' },
@@ -34,7 +34,8 @@ export default async function Header() {
                 </li>
               ))}
             </ul>
-            </nav>
+          </nav>
+          
         </div>
       </div>
     </header>

@@ -23,7 +23,7 @@ const Article = ({article}: {article: AllPostsQueryResult[number]}) => {
           <p className="line-clamp-3 text-sm leading-6 text-gray-600 max-w-[70ch]">{excerpt}</p>
         </div>
         <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-100">
-          <time className="text-gray-500 text-xs font-mono" dateTime={date}>
+          <time className="text-gray-500 text-xs" dateTime={date}>
             <DateComponent dateString={date} />
           </time>
         </div>

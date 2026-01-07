@@ -93,11 +93,6 @@ const levSans = localFont({
       style: 'normal',
     },
     {
-      path: './fonts/Lev-Sans-Bold.woff2',
-      weight: '700',
-      style: 'normal',
-    },
-    {
       path: './fonts/Lev-Sans-Italic.woff2',
       weight: '400',
       style: 'italic',
@@ -112,13 +107,25 @@ const levSans = localFont({
       weight: '600',
       style: 'italic',
     },
-    {
-      path: './fonts/Lev-Sans-Bold-Italic.woff2',
-      weight: '700',
-      style: 'italic',
-    },
   ],
   variable: '--font-lev-sans',
+  display: 'swap',
+})
+
+const levSerif = localFont({
+  src: [
+    {
+      path: './fonts/LevReckless-SemiBold.woff2',
+      weight: '600',
+      style: 'normal',
+    },
+    {
+      path: './fonts/LevReckless-Bold.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-lev-serif',
   display: 'swap',
 })
 
@@ -128,7 +135,7 @@ export default async function RootLayout({children}: {children: React.ReactNode}
   return (
     <html
       lang="da"
-      className={`${levSans.variable} ${inter.variable} ${ibmPlexMono.variable} bg-white text-black`}
+      className={`${levSans.variable} ${levSerif.variable} ${inter.variable} ${ibmPlexMono.variable} bg-white text-black`}
     >
       <body>
         <section className="min-h-screen pt-24">
