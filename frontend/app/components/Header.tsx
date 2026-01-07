@@ -23,6 +23,7 @@ export default async function Header() {
               className="flex items-center gap-4 md:gap-6 leading-5 text-xs sm:text-base tracking-tight"
             >
               {[
+                { href: '/styleguide', label: 'Styleguide' },
                 { href: '/indlaeg', label: 'Indlæg' },
                 { href: '/artikel', label: 'Artikler' },
                 { href: '/submit-content', label: 'Indsend artikel' }
@@ -35,7 +36,7 @@ export default async function Header() {
               ))}
             </ul>
           </nav>
-          
+
         </div>
       </div>
     </header>
