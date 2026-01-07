@@ -50,9 +50,9 @@ export const structure: StructureResolver = (S: StructureBuilder) =>
 
       S.listItem()
         .title('Blokke')
-        .schemaType('blockElement')
+        .schemaType('reusableBlocks')
         .icon(BlockElementIcon)
-        .child(S.documentTypeList('blockElement').title('Blokke')),
+        .child(S.documentTypeList('reusableBlocks').title('Blokke')),
 
       S.divider(),
 

@@ -30,6 +30,21 @@ export const article = defineType({
       },
       validation: (rule) => rule.required(),
     },
+
+    // Testing blocks
+    {
+      name: 'blocks',
+      title: 'Blokke',
+      type: 'array',
+      of: [{type: 'blockVariantWithReusableBlock'}],
+    },
+
+    {
+      name: 'contentWithBlocks',
+      title: 'Content med blokke',
+      type: 'blockContentWithBlocks',
+    },
+
     {
       name: 'date',
       title: 'Date',
@@ -42,18 +57,7 @@ export const article = defineType({
       type: 'reference',
       to: [{type: 'tax_category'}],      
       options: {disableNew: true},
-    },
-    {
-      name: 'postImage',
-      title: 'Post Image',
-      type: 'visual',
-    },
-    // Temporary show MUX video
-    {
-      name: 'video',
-      title: 'Video',
-      type: 'mux.video',
-    },    
+    }, 
     {
       name: 'excerpt',
       title: 'Excerpt',

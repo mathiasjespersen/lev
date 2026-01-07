@@ -13,6 +13,10 @@ import {defineType} from 'sanity'
 
 const blocks = [
     {
+        title: 'Genanvendelig blok',
+        type: 'reusableBlock',
+    },
+    {
         title: 'CTA',
         type: 'cta',
     },
@@ -22,8 +26,8 @@ const blocks = [
     },
 ]
 
-export const blockVariant = defineType({
-    name: 'blockVariant',
+export const blockVariantWithReusableBlock = defineType({
+    name: 'blockVariantWithReusableBlock',
     title: 'Blok',
     type: 'object',
     fields: [
@@ -62,16 +66,19 @@ export const blockVariant = defineType({
             variant: 'variant',
             ...blocks.reduce((acc, block) => ({
                 ...acc,
-                [`${block.type}Title`]: `${block.type}.title`,
+                [`${block.type}Title`]: `variant.0.${block.type}.title`,
             }), {}),
         },
         prepare(selection: any) {
             const {variant} = selection
-            const title = variant ? selection[`${variant}Title`] : undefined
-            const blockTitle = blocks.find(b => b.type === variant)?.title
+            const firstItem = variant?.[0]
+            console.log('firstItem', firstItem)
+            const blockType = firstItem?._type
+            const title = firstItem?.title || 'Untitled'
+            const blockTitle = blocks.find(b => b.type === blockType)?.title
             return {
-                title: title || `${variant?.toUpperCase() || 'Block'}`,
-                subtitle: blockTitle ? `${blockTitle} Block` : undefined,
+                title,
+                subtitle: blockTitle,
             }
         },
     },
