@@ -75,6 +75,8 @@ export default async function PostPage(props: Props) {
                 <PortableText
                   className="max-w-2xl prose-headings:font-medium prose-headings:tracking-tight"
                   value={post.content as PortableTextBlock[]}
+                  pageType="post"
+                  pageId={post._id}
                 />
               )}
             </article>
