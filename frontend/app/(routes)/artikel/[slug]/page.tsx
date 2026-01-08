@@ -9,7 +9,7 @@ import PortableText from '@/app/components/PortableText'
 import {sanityFetch} from '@/sanity/lib/live'
 import {articlePagesSlugs, articleQuery} from '@/sanity/lib/queries'
 import {resolveOpenGraphImage} from '@/sanity/lib/utils'
-import BlockRender from '@/app/components/BlockRender'
+import BlockRender from '@/app/components/BlockRenderer'
 
 type Props = {
   params: Promise<{slug: string}>

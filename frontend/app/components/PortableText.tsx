@@ -11,7 +11,7 @@
 import {PortableText, type PortableTextComponents, type PortableTextBlock} from 'next-sanity'
 import ResolvedLink from '@/app/components/ResolvedLink'
 import Image from '@/app/components/SanityImage'
-import BlockRender from './BlockRender'
+import BlockRender from './BlockRenderer'
 
 export default function CustomPortableText({
   className,

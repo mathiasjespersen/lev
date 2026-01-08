@@ -1,12 +1,12 @@
-import React from 'react'
-
-import Info from '@/app/components/InfoSection'
 import {dataAttr} from '@/sanity/lib/utils'
-import {PageBuilderSection} from '@/sanity/lib/types'
+
+import Cta from '@/app/components/Cta'
+import ReusableBlock from '@/app/components/ReusableBlock'
+import React from 'react'
 
 type BlockProps = {
   index: number
-  block: PageBuilderSection
+  block: any
   pageId: string
   pageType: string
 }
@@ -16,41 +16,42 @@ type BlocksType = {
 }
 
 const Blocks = {
-  infoSection: Info,
+    cta: Cta,
+    reusableBlock: ReusableBlock,
 } as BlocksType
 
-/**
- * Used by the <PageBuilder>, this component renders a the component that matches the block type.
- */
-export default function BlockRenderer({block, index, pageId, pageType}: BlockProps) {
-  // Block does exist
-  if (typeof Blocks[block._type] !== 'undefined') {
-    return (
-      <div
-        key={block._key}
-        data-sanity={dataAttr({
-          id: pageId,
-          type: pageType,
-          path: `pageBuilder[_key=="${block._key}"]`,
-        }).toString()}
-      >
-        {React.createElement(Blocks[block._type], {
-          key: block._key,
-          block: block,
-          index: index,
-          pageId: pageId,
-          pageType: pageType,
-        })}
-      </div>
-    )
+export default function BlockRender({blocks, pageType, pageId}: {blocks: any[] | undefined, pageType: string, pageId: string}) {
+  if (!blocks) {
+    return null
   }
-  // Block doesn't exist yet
-  return React.createElement(
-    () => (
-      <div className="w-full bg-gray-100 text-center text-gray-500 p-20 rounded">
-        A &ldquo;{block._type}&rdquo; block hasn&apos;t been created
-      </div>
-    ),
-    {key: block._key},
+
+  return (
+    <>
+        {blocks.map((block, index) => (
+            <div
+                className="my-6 p-4 border border-gray-200 rounded"
+                key={block._key}
+                data-sanity={dataAttr({
+                    id: pageId,
+                    type: pageType,
+                    path: `blocks[_key=="${block._key}"]`,
+                }).toString()}
+            >
+                {block.variant && typeof Blocks[block.variant[0]._type] !== 'undefined' ? (
+                    React.createElement(Blocks[block.variant[0]._type], {
+                        key: block._key,
+                        block: block,
+                        index: index,
+                        pageId: pageId,
+                        pageType: pageType,
+                    })
+                ) : (
+                    <div className="w-full bg-gray-100 text-center text-gray-500 p-20 rounded">
+                        A &ldquo;{block.variant[0]._type}&rdquo; block hasn&apos;t been created
+                    </div>
+                )}
+            </div>
+        ))}
+    </>
   )
 }
