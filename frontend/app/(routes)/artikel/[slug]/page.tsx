@@ -9,6 +9,7 @@ import PortableText from '@/app/components/PortableText'
 import {sanityFetch} from '@/sanity/lib/live'
 import {articlePagesSlugs, articleQuery} from '@/sanity/lib/queries'
 import {resolveOpenGraphImage} from '@/sanity/lib/utils'
+import BlockRender from '@/app/components/BlockRender'
 
 type Props = {
   params: Promise<{slug: string}>
@@ -72,13 +73,25 @@ export default async function ArticlePage(props: Props) {
               </div>
             </div>
             <article className="gap-6 grid max-w-4xl">
-              {article.postImage && <Visual visual={article.postImage} />}
-              {article.content?.length && (
-                <PortableText
-                  className="max-w-2xl prose-headings:font-medium prose-headings:tracking-tight"
-                  value={article.content as PortableTextBlock[]}
-                />
-              )}
+              <div className='my-10'>
+                {article.contentWithBlocks?.length && (
+                  <PortableText
+                    className="max-w-2xl prose-headings:font-medium prose-headings:tracking-tight"
+                    value={article.contentWithBlocks as PortableTextBlock[]}
+                    pageType="article"
+                    pageId={article._id}
+                  />
+                )}
+              </div>
+              <div className='my-10'>
+                {article.blocks && (
+                  <BlockRender
+                    blocks={article.blocks}
+                    pageType="article"
+                    pageId={article._id}
+                  />
+                )}
+              </div>
             </article>
           </div>
         </div>

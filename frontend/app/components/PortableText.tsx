@@ -11,13 +11,18 @@
 import {PortableText, type PortableTextComponents, type PortableTextBlock} from 'next-sanity'
 import ResolvedLink from '@/app/components/ResolvedLink'
 import Image from '@/app/components/SanityImage'
+import BlockRender from './BlockRender'
 
 export default function CustomPortableText({
   className,
   value,
+  pageType,
+  pageId,
 }: {
   className?: string
   value: PortableTextBlock[]
+  pageType: string
+  pageId: string
 }) {
   const components: PortableTextComponents = {
     types: {
@@ -113,7 +118,10 @@ export default function CustomPortableText({
 
   return (
     <div className={`prose-a:text-brand prose dark:prose-invert ${className}`}>
-      <PortableText components={components} value={value} />
+      <PortableText
+        components={components}
+        value={value}
+      />
     </div>
   )
 }
