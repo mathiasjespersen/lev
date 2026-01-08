@@ -134,7 +134,18 @@ export const moreArticlesQuery = defineQuery(`
 
 export const articleQuery = defineQuery(`
   *[_type == "article" && slug.current == $slug] [0] {
-    contentWithBlocks,
+    contentWithBlocks[]{
+      ...,
+      _type == "blockVariantWithReusableBlock" => {
+        ...,
+        variant[]{
+          ...,
+          blockContent->{
+            ...
+          }
+        }
+      }
+    },
     blocks[]{
       variant[]{
         ...,
