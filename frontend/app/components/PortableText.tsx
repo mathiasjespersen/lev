@@ -39,6 +39,16 @@ export default function CustomPortableText({
           </figure>
         )
       },
+      blockVariantWithReusableBlock: ({value}) => {
+        if (!value && !value.variant.length) {
+          return null
+        }
+
+        return (
+          <>
+            <BlockRender blocks={[value]} pageType={pageType} pageId={pageId} />
+          </>)
+      }
     },
     block: {
       h1: ({children, value}) => (
