@@ -1,4 +1,5 @@
 import { sanityFetch } from "@/sanity/lib/live";
+import Block from '@/app/components/Block';
 
 const getBlock = async (ref: string) => {
     const [{data}] = await Promise.all([sanityFetch({query: `*[_id == "${ref}"][0] {
@@ -12,15 +13,12 @@ export default async function ReusableBlock({block}: {block: any}) {
     return null
   }
 
-  console.log('ReusableBlock block:', block.variant[0].blockContent._ref)
-
-  const blockData = await getBlock(block.variant[0].blockContent._ref);
-
-  console.log('ReusableBlock block:', blockData)
+  console.log('REUSABLE BLOCK:', block.variant[0].blockContent.block.variant[0]);
 
   return (
     <>
-        <p>Resuable block "{blockData?.title}"</p>
+        <p>Resuable block "{block.variant[0].blockContent.block.variant[0].title}"</p>
+        <Block block={block.variant[0].blockContent.block} pageType="reusableBlock" pageId={block._id} />
     </>
   )
 }

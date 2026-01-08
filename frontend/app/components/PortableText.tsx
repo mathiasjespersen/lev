@@ -52,7 +52,8 @@ export default function CustomPortableText({
         return (
           <>
             <BlockRender blocks={[value]} pageType={pageType} pageId={pageId} />
-          </>)
+          </>
+        )
       }
     },
     block: {

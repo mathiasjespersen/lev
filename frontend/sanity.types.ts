@@ -13,6 +13,12 @@
  */
 
 // Source: ../studio/schema.json
+export type Card = {
+  _type: 'card'
+  title?: string
+  link?: Link
+}
+
 export type Gallery = {
   _type: 'gallery'
   title?: string
@@ -107,6 +113,9 @@ export type BlockVariantWithReusableBlock = {
     | ({
         _key: string
       } & Gallery)
+    | ({
+        _key: string
+      } & Card)
   >
 }
 
@@ -119,6 +128,9 @@ export type BlockVariant = {
     | ({
         _key: string
       } & Gallery)
+    | ({
+        _key: string
+      } & Card)
   >
 }
 
@@ -725,6 +737,7 @@ export type Geopoint = {
 }
 
 export type AllSanitySchemaTypes =
+  | Card
   | Gallery
   | Cta
   | ReusableBlocksReference
@@ -1046,14 +1059,51 @@ export type MoreArticlesQueryResult = Array<{
 
 // Source: sanity/lib/queries.ts
 // Variable: articleQuery
-// Query: *[_type == "article" && slug.current == $slug] [0] {    contentWithBlocks,    blocks,    content[]{    ...,    markDefs[]{      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current,    "article": article->slug.current  }    }  },      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  thumbnail,  "category": tax_category->title,  "topic": topic->title,  "date": coalesce(date, _updatedAt),  postImage,  }
+// Query: *[_type == "article" && slug.current == $slug] [0] {    contentWithBlocks,    blocks[]{      variant[]{        ...,        blockContent->{          ...        }      }    },    content[]{    ...,    markDefs[]{      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current,    "article": article->slug.current  }    }  },      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  thumbnail,  "category": tax_category->title,  "topic": topic->title,  "date": coalesce(date, _updatedAt),  postImage,  }
 export type ArticleQueryResult = {
   contentWithBlocks: BlockContentWithBlocks | null
-  blocks: Array<
-    {
-      _key: string
-    } & BlockVariantWithReusableBlock
-  > | null
+  blocks: Array<{
+    variant: Array<
+      | {
+          _key: string
+          _type: 'card'
+          title?: string
+          link?: Link
+          blockContent: null
+        }
+      | {
+          _key: string
+          _type: 'cta'
+          title?: string
+          link?: Link
+          blockContent: null
+        }
+      | {
+          _key: string
+          _type: 'gallery'
+          title?: string
+          images?: Array<
+            {
+              _key: string
+            } & Visual
+          >
+          blockContent: null
+        }
+      | {
+          _key: string
+          _type: 'reusableBlock'
+          blockContent: {
+            _id: string
+            _type: 'reusableBlocks'
+            _createdAt: string
+            _updatedAt: string
+            _rev: string
+            title: string
+            block: BlockVariant
+          }
+        }
+    >
+  }> | null
   content: Array<
     | {
         children?: Array<{
@@ -1133,7 +1183,7 @@ declare module '@sanity/client' {
     '\n  *[_type == "post" && slug.current == $slug] [0] {\n    content[]{\n    ...,\n    markDefs[]{\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current,\n    "article": article->slug.current\n  }\n\n    }\n  },\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  thumbnail,\n  "category": tax_category->title,\n  "topic": topic->title,\n  "date": coalesce(date, _updatedAt),\n\n  }\n': PostQueryResult
     '\n  *[_type == "article" && defined(slug.current)] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  thumbnail,\n  "category": tax_category->title,\n  "topic": topic->title,\n  "date": coalesce(date, _updatedAt),\n  postImage,\n\n  }\n': AllArticlesQueryResult
     '\n  *[_type == "article" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  thumbnail,\n  "category": tax_category->title,\n  "topic": topic->title,\n  "date": coalesce(date, _updatedAt),\n  postImage,\n\n  }\n': MoreArticlesQueryResult
-    '\n  *[_type == "article" && slug.current == $slug] [0] {\n    contentWithBlocks,\n    blocks,\n    content[]{\n    ...,\n    markDefs[]{\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current,\n    "article": article->slug.current\n  }\n\n    }\n  },\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  thumbnail,\n  "category": tax_category->title,\n  "topic": topic->title,\n  "date": coalesce(date, _updatedAt),\n  postImage,\n\n  }\n': ArticleQueryResult
+    '\n  *[_type == "article" && slug.current == $slug] [0] {\n    contentWithBlocks,\n    blocks[]{\n      variant[]{\n        ...,\n        blockContent->{\n          ...\n        }\n      }\n    },\n    content[]{\n    ...,\n    markDefs[]{\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current,\n    "article": article->slug.current\n  }\n\n    }\n  },\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  thumbnail,\n  "category": tax_category->title,\n  "topic": topic->title,\n  "date": coalesce(date, _updatedAt),\n  postImage,\n\n  }\n': ArticleQueryResult
     '\n  *[_type == "post" && defined(slug.current)]\n  {"slug": slug.current}\n': PostPagesSlugsResult
     '\n  *[_type == "article" && defined(slug.current)]\n  {"slug": slug.current}\n': ArticlePagesSlugsResult
     '\n  *[_type == "page" && defined(slug.current)]\n  {"slug": slug.current}\n': PagesSlugsResult

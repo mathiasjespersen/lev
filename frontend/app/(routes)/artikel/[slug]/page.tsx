@@ -74,14 +74,14 @@ export default async function ArticlePage(props: Props) {
             </div>
             <article className="gap-6 grid max-w-4xl">
               <div className='my-10'>
-                {article.contentWithBlocks?.length && (
+                {/* {article.contentWithBlocks?.length && (
                   <PortableText
                     className="max-w-2xl prose-headings:font-medium prose-headings:tracking-tight"
                     value={article.contentWithBlocks as PortableTextBlock[]}
                     pageType="article"
                     pageId={article._id}
                   />
-                )}
+                )} */}
               </div>
               <div className='my-10'>
                 {article.blocks && (

@@ -1,16 +1,5 @@
 import {defineType} from 'sanity'
 
-// const blocks = [
-//     {
-//         title: 'CTA',
-//         value: 'cta',
-//     },
-//     {
-//         title: 'Galleri',
-//         value: 'gallery',
-//     },
-// ]
-
 const blocks = [
     {
         title: 'Genanvendelig blok',
@@ -24,6 +13,10 @@ const blocks = [
         title: 'Galleri',
         type: 'gallery',
     },
+    {
+        title: 'Kort',
+        type: 'card',
+    }
 ]
 
 export const blockVariantWithReusableBlock = defineType({
