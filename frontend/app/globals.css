@@ -12,6 +12,7 @@
   }
 }
 
+/* TO BE DELETED */
 @utility container {
   margin: 0 auto;
   padding: 0 2rem;
@@ -21,7 +22,6 @@
 
 @theme {
   /* Colors */
-
   --breakpoint-xs: 320px;
   --breakpoint-sm: 768px;
   --breakpoint-md: 1024px;
@@ -51,7 +51,6 @@
   /* Font Families */
   --font-sans: var(--font-lev-sans), sans-serif;
   --font-serif: var(--font-lev-serif), Georgia, serif;
-
 
   /* Font Sizes */
   /* 12px */
@@ -104,9 +103,7 @@
 }
 
 
-
 /* Typography Utilities */
-
 /* Heading 00 */
 @utility lev-heading-2xl {
   @apply font-serif font-semibold text-5xl -ml-[.05em] tracking-[-.01em];
