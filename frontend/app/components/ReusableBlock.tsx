@@ -1,5 +1,5 @@
 import { sanityFetch } from "@/sanity/lib/live";
-import Block from '@/app/components/Block';
+import {Block} from '@/app/components/BlockRenderer';
 
 const getBlock = async (ref: string) => {
     const [{data}] = await Promise.all([sanityFetch({query: `*[_id == "${ref}"][0] {
