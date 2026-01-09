@@ -21,6 +21,7 @@
   /* Colors */
   /* Blue */
   --color-blue-100: #C7E8FF;
+  --color-blue-200: #5CBCFF; /* Tweaked */
   --color-blue-300: #75BAFF;
   --color-blue-500: #2170F0;
   --color-blue-700: #100E62;  /* #121A63; */
@@ -47,6 +48,7 @@
 
   /* Orange */
   --color-orange-100: #FFE08C;
+  --color-orange-200: #FFE17A;
   --color-orange-300: #FAAD17;
   --color-orange-500: #FF5400;
   --color-orange-700: #94401C;

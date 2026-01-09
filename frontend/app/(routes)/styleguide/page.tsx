@@ -6,6 +6,7 @@ const colorGroups = [
     name: 'Blå',
     colors: [
       {label: 'Blå 4', className: 'bg-blue-100'},
+      {label: 'Blå (Tweaked)', className: 'bg-blue-200'},
       {label: 'Blå 3', className: 'bg-blue-300'},
       {label: 'Blå 2', className: 'bg-blue-500'},
       {label: 'Blå 1', className: 'bg-blue-700'},
@@ -44,6 +45,7 @@ const colorGroups = [
     name: 'Orange',
     colors: [
       {label: 'Orange 100', className: 'bg-orange-100'},
+      {label: 'Orange (Tweaked)', className: 'bg-orange-200'},
       {label: 'Orange 300', className: 'bg-orange-300'},
       {label: 'Orange 500', className: 'bg-orange-500'},
       {label: 'Orange 700', className: 'bg-orange-700'},
