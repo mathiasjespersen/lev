@@ -18,8 +18,6 @@ export function Block({block, pageType, pageId, index}: {block: any | undefined,
     return null
   }
 
-  console.log('BLOCKS TO RENDER:', block);
-
   return (
     <div
         className="my-6 p-4 border border-gray-200 rounded"
@@ -53,8 +51,6 @@ export default function BlockRender({blocks, pageType, pageId}: {blocks: any[] |
   if (!blocks) {
     return null
   }
-
-  console.log('BLOCKS TO RENDER:', blocks);
 
   return (
     <>

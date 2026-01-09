@@ -8,9 +8,16 @@ const visualFields = /* groq */ `
     ...,
     asset->
   },
-  video{
-    ...,
-    asset->
+  video {
+    asset-> {
+      ...,
+      data {
+        ...,
+        playback_ids[]
+      },
+      playbackId,
+      status
+    }
   }
 `
 
@@ -35,7 +42,6 @@ const articleFields = /* groq */ `
   "category": tax_category->title,
   "topic": topic->title,
   "date": coalesce(date, _updatedAt),
-  postImage,
 `
 
 const linkReference = /* groq */ `
@@ -153,6 +159,9 @@ export const articleQuery = defineQuery(`
           ...
         }
       }
+    },
+    postImage{
+      ${visualFields}
     },
     content[]{
     ...,

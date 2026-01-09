@@ -9,7 +9,7 @@ export default defineType({
       name: 'mediaType',
       title: 'Type',
       type: 'string',
-      // initialValue: 'image',
+      initialValue: 'image',
       options: {
         list: [
           {title: 'Billede', value: 'image'},
@@ -21,7 +21,7 @@ export default defineType({
     }),
     defineField({
       name: 'image',
-      title: 'Image',
+      title: 'Billede',
       type: 'image',
       hidden: ({parent}) => parent?.mediaType !== 'image',
       options: {
@@ -30,7 +30,7 @@ export default defineType({
     }),
     defineField({
       name: 'video',
-      title: 'Video',
+      title: 'Videoloop',
       type: 'mux.video',
       hidden: ({parent}) => parent?.mediaType !== 'video',
     }),

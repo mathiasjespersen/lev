@@ -2392,6 +2392,14 @@
         },
         "optional": true
       },
+      "postImage": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "visual"
+        },
+        "optional": true
+      },
       "date": {
         "type": "objectAttribute",
         "value": {

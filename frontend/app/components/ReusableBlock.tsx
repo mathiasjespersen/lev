@@ -13,8 +13,6 @@ export default async function ReusableBlock({block}: {block: any}) {
     return null
   }
 
-  console.log('REUSABLE BLOCK:', block.variant[0].blockContent.block.variant[0]);
-
   return (
     <>
         <p>Resuable block "{block.variant[0].blockContent.block.variant[0].title}"</p>

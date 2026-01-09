@@ -38,11 +38,15 @@ export const article = defineType({
       type: 'array',
       of: [{type: 'blockVariantWithReusableBlock'}],
     },
-
     {
       name: 'contentWithBlocks',
       title: 'Content med blokke',
       type: 'blockContentWithBlocks',
+    },
+    {
+      name: 'postImage',
+      title: 'Feature billede',
+      type: 'visual',
     },
 
     {

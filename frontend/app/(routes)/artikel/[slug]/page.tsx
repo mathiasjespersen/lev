@@ -74,6 +74,11 @@ export default async function ArticlePage(props: Props) {
             </div>
             <article className="gap-6 grid max-w-4xl">
               <div className='my-10'>
+                {article.postImage && (
+                  <Visual visual={article.postImage} />
+                )}
+              </div>
+              <div className='my-10'>
                 {article.contentWithBlocks?.length && (
                   <PortableText
                     className="max-w-2xl prose-headings:font-medium prose-headings:tracking-tight"
