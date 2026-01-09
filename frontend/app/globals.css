@@ -1,17 +1,6 @@
 @import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 
-@layer base {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-medium tracking-tight;
-  }
-}
-
 /* TO BE DELETED */
 @utility container {
   margin: 0 auto;
@@ -21,7 +10,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Colors */
+  /* Breakpoints */ 
   --breakpoint-xs: 320px;
   --breakpoint-sm: 768px;
   --breakpoint-md: 1024px;
@@ -29,24 +18,51 @@
   --breakpoint-xl: 1440px;
   --breakpoint-2xl: 1920px;
 
-  --shadow-layer: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
-  --color-framework: #000;
-  --color-black: #0b0b0b;
-  --color-white: #fff;
-  --color-brand: #f50;
-  --color-blue: #0052ff;
-  --color-yellow: #cdea19;
-  --color-gray-50: #f6f6f8;
-  --color-gray-100: #eeeef1;
-  --color-gray-200: #e3e4e8;
-  --color-gray-300: #bbbdc9;
-  --color-gray-400: #9499ad;
-  --color-gray-500: #727892;
-  --color-gray-600: #515870;
-  --color-gray-700: #383d51;
-  --color-gray-800: #252837;
-  --color-gray-900: #1b1d27;
-  --color-gray-950: #13141b;
+  /* Colors */
+  /* Blue */
+  --color-blue-100: #C7E8FF;
+  --color-blue-300: #75BAFF;
+  --color-blue-500: #2170F0;
+  --color-blue-700: #100E62;  /* #121A63; */
+
+  /* Gray (warm gray) */
+  --color-gray-50: #F2EFED;
+  --color-gray-100: #E6E6E1;
+  --color-gray-300: #AAAAA5;
+  --color-gray-500: #82827D;
+  --color-gray-700: #5A5A55;
+  --color-gray-800: #444444;
+
+ /* Violet */
+  --color-violet-100: #C7BDFC;
+  --color-violet-300: #AA8CFC;
+  --color-violet-500: #865CFC;
+  --color-violet-700: #5300A9;
+
+  /* Pink */
+  --color-pink-100: #FFCFDB;
+  --color-pink-300: #FA94D9;
+  --color-pink-500: #FF00C9;
+  --color-pink-700: #8F0373;
+
+  /* Orange */
+  --color-orange-100: #FFE08C;
+  --color-orange-300: #FAAD17;
+  --color-orange-500: #FF5400;
+  --color-orange-700: #94401C;
+
+  /* Green */
+  --color-green-100: #EDFF8C;
+  --color-green-300: #C2F000;
+  --color-green-500: #32BE00;
+  --color-green-700: #006E0A;
+
+  /* Turquoise */
+  --color-turquoise-100: #D6F5FF;
+  --color-turquoise-300: #75E3FF;
+  --color-turquoise-500: #00A1C7;
+  --color-turquoise-700: #006170;
+
 
   /* Font Families */
   --font-sans: var(--font-lev-sans), sans-serif;
@@ -122,11 +138,11 @@
 }
 
 @utility lev-text-lg {
-  @apply text-xl -ml-[.03em];
+  @apply text-xl font-normal -ml-[.03em];
 }
 @utility lev-text-md {
-  @apply text-lg;
+  @apply text-lg font-normal;
 }
 @utility lev-text-sm {
-  @apply text-base;
+  @apply text-base font-normal;
 }

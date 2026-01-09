@@ -14,7 +14,7 @@ export default async function Header() {
         <div className="col-span-12 flex items-center justify-between gap-5">
       
           <Link href="/">
-            <LogoLev className="text-[#100E62]" />
+            <LogoLev className="text-blue-700" />
           </Link>
 
           <nav>
