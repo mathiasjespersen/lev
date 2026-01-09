@@ -1058,7 +1058,7 @@ export type MoreArticlesQueryResult = Array<{
 
 // Source: sanity/lib/queries.ts
 // Variable: articleQuery
-// Query: *[_type == "article" && slug.current == $slug] [0] {    contentWithBlocks[]{      ...,      _type == "blockVariantWithReusableBlock" => {        ...,        variant[]{          ...,          blockContent->{            ...          }        }      }    },    blocks[]{      variant[]{        ...,        blockContent->{          ...        }      }    },    postImage{        ...,  image{    ...,    asset->  },  video {    asset-> {      ...,      data {        ...,        playback_ids[]      },      playbackId,      status    }  }    },    content[]{    ...,    markDefs[]{      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current,    "article": article->slug.current  }    }  },      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  thumbnail,  "category": tax_category->title,  "topic": topic->title,  "date": coalesce(date, _updatedAt),  }
+// Query: *[_type == "article" && slug.current == $slug] [0] {    contentWithBlocks[]{      ...,      _type == "blockVariantWithReusableBlock" => {        ...,        variant[]{          ...,          blockContent->{            ...          }        }      }    },    blocks[]{      variant[]{        ...,        blockContent->{          ...        }      }    },    postImage{        ...,  image{    ...,    asset->{      _id,        ...    }  },  video {    asset-> {      playbackId,      data {        aspect_ratio      }    }  }    },    content[]{    ...,    markDefs[]{      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current,    "article": article->slug.current  }    }  },      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  thumbnail,  "category": tax_category->title,  "topic": topic->title,  "date": coalesce(date, _updatedAt),  }
 export type ArticleQueryResult = {
   contentWithBlocks: Array<
     | {
@@ -1203,44 +1203,9 @@ export type ArticleQueryResult = {
     } | null
     video: {
       asset: {
-        _id: string
-        _type: 'mux.videoAsset'
-        _createdAt: string
-        _updatedAt: string
-        _rev: string
-        status: string | null
-        assetId?: string
         playbackId: string | null
-        filename?: string
-        thumbTime?: number
         data: {
-          _type: 'mux.assetData'
-          resolution_tier?: string
-          upload_id?: string
-          created_at?: string
-          id?: string
-          status?: string
-          max_stored_resolution?: string
-          passthrough?: string
-          encoding_tier?: string
-          video_quality?: string
-          master_access?: string
-          aspect_ratio?: string
-          duration?: number
-          max_stored_frame_rate?: number
-          mp4_support?: string
-          max_resolution_tier?: string
-          tracks?: Array<
-            {
-              _key: string
-            } & MuxTrack
-          >
-          playback_ids: Array<
-            {
-              _key: string
-            } & MuxPlaybackId
-          > | null
-          static_renditions?: MuxStaticRenditions
+          aspect_ratio: string | null
         } | null
       } | null
     } | null
@@ -1323,7 +1288,7 @@ declare module '@sanity/client' {
     '\n  *[_type == "post" && slug.current == $slug] [0] {\n    content[]{\n    ...,\n    markDefs[]{\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current,\n    "article": article->slug.current\n  }\n\n    }\n  },\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  thumbnail,\n  "category": tax_category->title,\n  "topic": topic->title,\n  "date": coalesce(date, _updatedAt),\n\n  }\n': PostQueryResult
     '\n  *[_type == "article" && defined(slug.current)] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  thumbnail,\n  "category": tax_category->title,\n  "topic": topic->title,\n  "date": coalesce(date, _updatedAt),\n\n  }\n': AllArticlesQueryResult
     '\n  *[_type == "article" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  thumbnail,\n  "category": tax_category->title,\n  "topic": topic->title,\n  "date": coalesce(date, _updatedAt),\n\n  }\n': MoreArticlesQueryResult
-    '\n  *[_type == "article" && slug.current == $slug] [0] {\n    contentWithBlocks[]{\n      ...,\n      _type == "blockVariantWithReusableBlock" => {\n        ...,\n        variant[]{\n          ...,\n          blockContent->{\n            ...\n          }\n        }\n      }\n    },\n    blocks[]{\n      variant[]{\n        ...,\n        blockContent->{\n          ...\n        }\n      }\n    },\n    postImage{\n      \n  ...,\n  image{\n    ...,\n    asset->\n  },\n  video {\n    asset-> {\n      ...,\n      data {\n        ...,\n        playback_ids[]\n      },\n      playbackId,\n      status\n    }\n  }\n\n    },\n    content[]{\n    ...,\n    markDefs[]{\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current,\n    "article": article->slug.current\n  }\n\n    }\n  },\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  thumbnail,\n  "category": tax_category->title,\n  "topic": topic->title,\n  "date": coalesce(date, _updatedAt),\n\n  }\n': ArticleQueryResult
+    '\n  *[_type == "article" && slug.current == $slug] [0] {\n    contentWithBlocks[]{\n      ...,\n      _type == "blockVariantWithReusableBlock" => {\n        ...,\n        variant[]{\n          ...,\n          blockContent->{\n            ...\n          }\n        }\n      }\n    },\n    blocks[]{\n      variant[]{\n        ...,\n        blockContent->{\n          ...\n        }\n      }\n    },\n    postImage{\n      \n  ...,\n  image{\n    ...,\n    asset->{\n      _id,  \n      ...\n    }\n  },\n  video {\n    asset-> {\n      playbackId,\n      data {\n        aspect_ratio\n      }\n    }\n  }\n\n    },\n    content[]{\n    ...,\n    markDefs[]{\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current,\n    "article": article->slug.current\n  }\n\n    }\n  },\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  thumbnail,\n  "category": tax_category->title,\n  "topic": topic->title,\n  "date": coalesce(date, _updatedAt),\n\n  }\n': ArticleQueryResult
     '\n  *[_type == "post" && defined(slug.current)]\n  {"slug": slug.current}\n': PostPagesSlugsResult
     '\n  *[_type == "article" && defined(slug.current)]\n  {"slug": slug.current}\n': ArticlePagesSlugsResult
     '\n  *[_type == "page" && defined(slug.current)]\n  {"slug": slug.current}\n': PagesSlugsResult

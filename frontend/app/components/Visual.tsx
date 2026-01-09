@@ -3,6 +3,7 @@ import { SanityImage } from 'sanity-image';
 import {dataset, projectId} from '@/sanity/lib/api'
 
 import MuxPlayer from "@mux/mux-player-react";
+import { DereferencedVisual } from '@/sanity/lib/types';
 
 type VisualWithMux = Omit<Visual, 'video'> & {
   video?: {
@@ -10,16 +11,20 @@ type VisualWithMux = Omit<Visual, 'video'> & {
   }
 }
 
-export default async function Visual({visual}: {visual: VisualWithMux}) {
+export default async function Visual({visual}: {visual?: DereferencedVisual}) {
+    if (!visual) {
+        return null
+    }
+
     console.log('Visual to render:', visual);
     return (
         <>
             {
-            visual.mediaType === 'image' && visual.image && visual.image.asset?._ref && (
+            visual.mediaType === 'image' && visual.image && visual.image.asset?._id && (
                 <SanityImage
                     className='w-full'
                     baseUrl={`https://cdn.sanity.io/images/${projectId}/${dataset}/`}
-                    id={visual.image.asset._ref}
+                    id={visual.image.asset._id}
                     {...visual.image}
                 />
             )
@@ -31,7 +36,7 @@ export default async function Visual({visual}: {visual: VisualWithMux}) {
                     style={{
                         aspectRatio: (visual.video?.asset as any)?.data.aspect_ratio.replace(':', '/') || '16/9'
                     }}
-                    playbackId={visual.video?.asset?.playbackId}
+                    playbackId={visual.video?.asset?.playbackId ?? undefined}
                 />
             )
             }

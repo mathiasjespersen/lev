@@ -6,17 +6,17 @@ const visualFields = /* groq */ `
   ...,
   image{
     ...,
-    asset->
+    asset->{
+      _id,  
+      ...
+    }
   },
   video {
     asset-> {
-      ...,
-      data {
-        ...,
-        playback_ids[]
-      },
       playbackId,
-      status
+      data {
+        aspect_ratio
+      }
     }
   }
 `

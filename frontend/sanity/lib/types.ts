@@ -1,4 +1,4 @@
-import {GetPageQueryResult} from '@/sanity.types'
+import {GetPageQueryResult, SanityImageAssetReference, SanityImageCrop, SanityImageHotspot} from '@/sanity.types'
 
 export type PageBuilderSection = NonNullable<NonNullable<GetPageQueryResult>['pageBuilder']>[number]
 export type ExtractPageBuilderType<T extends PageBuilderSection['_type']> = Extract<
@@ -15,4 +15,14 @@ export type DereferencedLink = {
   post?: string | null
   article?: string | null
   openInNewTab?: boolean
+}
+
+export type DereferencedVisual = {
+  _type: 'visual'
+  mediaType?: 'image' | 'video'
+  image?: {
+    asset?: any
+    _type: 'image'
+  } | null
+  video?: any
 }
