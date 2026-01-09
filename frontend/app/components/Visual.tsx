@@ -11,18 +11,18 @@ type VisualWithMux = Omit<Visual, 'video'> & {
   }
 }
 
-export default async function Visual({visual}: {visual?: DereferencedVisual}) {
+export default async function Visual({visual, className}: {visual?: DereferencedVisual, className?: string}) {
     if (!visual) {
         return null
     }
 
-    console.log('Visual to render:', visual);
+    console.log('Visual to render:', visual.video?.asset);
     return (
         <>
             {
             visual.mediaType === 'image' && visual.image && visual.image.asset?._id && (
                 <SanityImage
-                    className='w-full'
+                    className={`${className} w-full`}
                     baseUrl={`https://cdn.sanity.io/images/${projectId}/${dataset}/`}
                     id={visual.image.asset._id}
                     {...visual.image}
@@ -32,7 +32,7 @@ export default async function Visual({visual}: {visual?: DereferencedVisual}) {
             {
             visual.video && visual.mediaType === 'video' && visual.video && (
                 <MuxPlayer
-                    className='w-full'
+                    className={`${className} w-full`}
                     style={{
                         aspectRatio: (visual.video?.asset as any)?.data.aspect_ratio.replace(':', '/') || '16/9'
                     }}

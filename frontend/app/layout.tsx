@@ -135,7 +135,7 @@ export default async function RootLayout({children}: {children: React.ReactNode}
   return (
     <html
       lang="da"
-      className={`${levSans.variable} ${levSerif.variable} ${inter.variable} ${ibmPlexMono.variable} bg-white text-blue-700`}
+      className={`${levSans.variable} ${levSerif.variable} ${inter.variable} ${ibmPlexMono.variable} bg-white text-gray-800`}
     >
       <body>
         <section className="min-h-screen pt-24">

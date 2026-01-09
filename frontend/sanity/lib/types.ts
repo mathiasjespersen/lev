@@ -1,4 +1,4 @@
-import {GetPageQueryResult, SanityImageAssetReference, SanityImageCrop, SanityImageHotspot} from '@/sanity.types'
+import {GetPageQueryResult, MuxVideoAssetReference, SanityImageAssetReference, SanityImageCrop, SanityImageHotspot} from '@/sanity.types'
 
 export type PageBuilderSection = NonNullable<NonNullable<GetPageQueryResult>['pageBuilder']>[number]
 export type ExtractPageBuilderType<T extends PageBuilderSection['_type']> = Extract<

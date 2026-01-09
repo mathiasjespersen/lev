@@ -56,7 +56,7 @@ export default function BlockRender({blocks, pageType, pageId}: {blocks: any[] |
     <>
       {blocks.map((block, index) => (
         <Block
-          key={block._key}
+          key={block._id || index}
           block={block}
           index={index}
           pageType={pageType}

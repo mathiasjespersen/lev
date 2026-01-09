@@ -1,5 +1,8 @@
 import {settingsQuery} from '@/sanity/lib/queries'
 import {sanityFetch} from '@/sanity/lib/live'
+import Entry from '@/app/components/blocks/Entry'
+import Cta from '@/app/components/blocks/Cta'
+import Cards from '@/app/components/blocks/Cards'
 
 const colorGroups = [
   {
@@ -79,6 +82,14 @@ export default async function Page() {
   return (
     <>
       <div className="lev-grid gap-y-36">
+
+        <Entry/>
+
+        <Cta variant="quote"/>
+
+        <Cards/>
+
+        <Cta/>
 
         <div className="col-span-12 lev-subgrid gap-y-10">
           <div className="col-span-12">

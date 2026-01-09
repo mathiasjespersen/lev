@@ -12,6 +12,7 @@ const visualFields = /* groq */ `
     }
   },
   video {
+    ...,
     asset-> {
       playbackId,
       data {
