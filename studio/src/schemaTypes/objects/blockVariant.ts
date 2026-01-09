@@ -20,6 +20,10 @@ const blocks = [
         title: 'Galleri',
         type: 'gallery',
     },
+    {
+        title: 'Kort',
+        type: 'card',
+    }
 ]
 
 export const blockVariant = defineType({

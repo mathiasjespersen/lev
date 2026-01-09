@@ -20,6 +20,8 @@ import {blockVariantWithReusableBlock} from './objects/blockVariantWithReusableB
 import reusableBlock from './blocks/reusableBlock'
 import cta from './blocks/cta'
 import gallery from './blocks/gallery'
+import card from './blocks/card'
+import { ca } from 'date-fns/locale'
 
 export const schemaTypes = [
   // Singletons
@@ -47,4 +49,5 @@ export const schemaTypes = [
   reusableBlock,
   cta,
   gallery,
+  card,
 ]
